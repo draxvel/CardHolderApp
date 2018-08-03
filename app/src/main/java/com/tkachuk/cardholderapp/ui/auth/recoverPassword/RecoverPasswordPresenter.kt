@@ -5,6 +5,9 @@ import com.tkachuk.cardholderapp.data.IAuthFireBase
 
 
 class RecoverPasswordPresenter : IRecoverPasswordContract.IRecoverPasswordPresenter {
+
+    constructor()
+
     override fun recover(login: String) {
 
        AuthFireBase.recoverPassword(login, callback = object : IAuthFireBase.RecoverPasswordCallback{

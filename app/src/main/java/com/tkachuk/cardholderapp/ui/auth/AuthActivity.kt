@@ -15,7 +15,7 @@ class AuthActivity : AppCompatActivity(), IAuth {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        showSignUp()
+        showRecoverPassword()
     }
 
     private fun replaceFragment(fragment: Fragment){
