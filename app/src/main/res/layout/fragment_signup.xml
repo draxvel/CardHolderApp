@@ -51,7 +51,7 @@
         android:textColorHint="@color/colorWhite">
 
         <EditText
-            android:id="@+id/tv_confirm_password"
+            android:id="@+id/tv_repeat_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/repeat_passport"
@@ -60,7 +60,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_singUp"
+        android:id="@+id/btn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
