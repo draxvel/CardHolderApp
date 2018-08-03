@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "650698192156",
+    "firebase_url": "https://cardholderapp-5b63a.firebaseio.com",
+    "project_id": "cardholderapp-5b63a",
+    "storage_bucket": "cardholderapp-5b63a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650698192156:android:4cb4c74842693d8d",
+        "android_client_info": {
+          "package_name": "com.tkachuk.cardholderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650698192156-vlk81v0mn4u3fp6q31bh49otr79dm41a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbT1YsbHyTYDJjb1IwolmyRxOA5Gs9aPA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
