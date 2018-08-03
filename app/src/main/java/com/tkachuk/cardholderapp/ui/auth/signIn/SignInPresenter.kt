@@ -11,13 +11,12 @@ class SignInPresenter(activity: AuthActivity) : ISignInContract.ISignInPresenter
     override fun signIn(login: String, password: String) {
         AuthFireBase.signIn(login, password, callback = object : IAuthFireBase.SignInCallback{
             override fun onSignIn() {
-                iAuth.showMsg("Sign In!")
+                iAuth.showMainActivity()
             }
 
             override fun showMsg(msg: String) {
                 iAuth.showMsg(msg)
             }
-
         })
     }
 

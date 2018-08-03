@@ -12,6 +12,7 @@ class SignUpPresenter(activity: AuthActivity) : ISignUpContract.ISignUpPresenter
         AuthFireBase.signUp(login, password, callback = object : IAuthFireBase.SignUpCallback{
             override fun onSignUp() {
                 iAuth.showMsg("SignUp")
+                iAuth.showMainActivity()
             }
 
             override fun showMsg(msg: String) {

@@ -6,4 +6,5 @@ interface IAuth : IView {
     fun showSignIn()
     fun showSignUp()
     fun showRecoverPassword()
+    fun showMainActivity()
 }

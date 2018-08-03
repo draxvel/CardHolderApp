@@ -5,7 +5,6 @@ import com.tkachuk.cardholderapp.data.IAuthFireBase
 import com.tkachuk.cardholderapp.ui.auth.AuthActivity
 import com.tkachuk.cardholderapp.ui.auth.IAuth
 
-
 class RecoverPasswordPresenter(activity: AuthActivity) : IRecoverPasswordContract.IRecoverPasswordPresenter {
 
     private var iAuth: IAuth = activity
@@ -19,6 +18,7 @@ class RecoverPasswordPresenter(activity: AuthActivity) : IRecoverPasswordContrac
 
            override fun onRecover() {
                iAuth.showMsg("New password sent to your email.")
+               iAuth.showMainActivity()
            }
        })
     }
