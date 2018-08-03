@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.tkachuk.cardholderapp.MainActivity
 import com.tkachuk.cardholderapp.R
+import com.tkachuk.cardholderapp.data.AuthFireBase
 import com.tkachuk.cardholderapp.ui.auth.recoverPassword.RecoverPasswordFragment
 import com.tkachuk.cardholderapp.ui.auth.signIn.SignInFragment
 import com.tkachuk.cardholderapp.ui.auth.singUp.SignUpFragment
@@ -16,8 +17,16 @@ class AuthActivity : AppCompatActivity(), IAuth {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+    }
 
-        showRecoverPassword()
+    override fun onStart() {
+        super.onStart()
+
+        if (AuthFireBase.isSignIn()) {
+            showMainActivity()
+        } else {
+            replaceFragment(SignInFragment())
+        }
     }
 
     private fun replaceFragment(fragment: Fragment){
@@ -44,6 +53,6 @@ class AuthActivity : AppCompatActivity(), IAuth {
     }
 
     override fun showMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java));
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }
