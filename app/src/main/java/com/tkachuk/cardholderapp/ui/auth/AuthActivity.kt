@@ -14,6 +14,8 @@ class AuthActivity : AppCompatActivity(), IAuth {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+
+        showSignIn()
     }
 
     private fun replaceFragment(fragment: Fragment){
