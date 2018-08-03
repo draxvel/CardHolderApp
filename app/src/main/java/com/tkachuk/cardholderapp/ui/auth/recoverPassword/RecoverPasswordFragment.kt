@@ -18,6 +18,7 @@ class RecoverPasswordFragment : Fragment(), IRecoverPasswordContract.IRecoverPas
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         root = inflater.inflate(R.layout.fragmen_recoverpassword, container, false)
+        recoverPasswordPresenter = RecoverPasswordPresenter()
         initView()
         initListener()
         return root
