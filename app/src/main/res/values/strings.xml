@@ -11,4 +11,5 @@
     <string name="icon">icon</string>
     <string name="go_to_SignIn">or Sign In</string>
     <string name="not_mismatch">Not mismatch</string>
+    <string name="recover">Recover</string>
 </resources>
