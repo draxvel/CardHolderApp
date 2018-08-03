@@ -33,7 +33,6 @@ object AuthFireBase: IAuthFireBase {
                 }
             }
         }
-
     }
 
     override fun recoverPassword(login: String, callback: IAuthFireBase.RecoverPasswordCallback) {
@@ -41,6 +40,10 @@ object AuthFireBase: IAuthFireBase {
                 .addOnCompleteListener{task ->
                     if (task.isSuccessful) {
                         callback.onRecover()
+                    }else{
+                        if(task.exception!=null) {
+                            callback.showMsg(task.exception!!.message.toString())
+                        }
                     }
                 }
     }

@@ -8,17 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.tkachuk.cardholderapp.R
+import com.tkachuk.cardholderapp.ui.auth.AuthActivity
 
-class RecoverPasswordFragment : Fragment(), IRecoverPasswordContract.IRecoverPasswordView {
+class RecoverPasswordFragment : Fragment() {
 
     private lateinit var root: View
     private lateinit var recoverPasswordPresenter: RecoverPasswordPresenter
     private lateinit var btnRecover: Button
-    private lateinit var tvGoToSignInRecoverPassword: TextView
+    private lateinit var tvLogin:TextView
+    private lateinit var tvGoToSignIn: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         root = inflater.inflate(R.layout.fragmen_recoverpassword, container, false)
-        recoverPasswordPresenter = RecoverPasswordPresenter()
+        recoverPasswordPresenter = RecoverPasswordPresenter(activity as AuthActivity)
         initView()
         initListener()
         return root
@@ -26,28 +28,19 @@ class RecoverPasswordFragment : Fragment(), IRecoverPasswordContract.IRecoverPas
 
     private fun initView() {
         btnRecover = root.findViewById(R.id.btn_recover)
-        tvGoToSignInRecoverPassword = root.findViewById(R.id.tv_go_to_signIn_recover_password)
+        tvGoToSignIn = root.findViewById(R.id.tv_go_to_signIn_recover_password)
+        tvLogin = root.findViewById(R.id.tv_login_recover_password)
     }
 
     private fun initListener() {
         btnRecover.setOnClickListener{
-            recoverPasswordPresenter.recover(tvGoToSignInRecoverPassword.text.toString())
+            tvLogin.error = null
+            if(tvLogin.text.isEmpty()){
+                tvLogin.error = getString(R.string.empty)
+            }else recoverPasswordPresenter.recover(tvLogin.text.toString())
         }
-    }
-
-    override fun showSignIn() {
-        this.showSignIn()
-    }
-
-    override fun showSignUp() {
-        this.showSignUp()
-    }
-
-    override fun showRecoverPassword() {
-        //
-    }
-
-    override fun showMsg(msg: String) {
-        this.showMsg(msg)
+        tvGoToSignIn.setOnClickListener {
+            recoverPasswordPresenter.showSignIn()
+        }
     }
 }
