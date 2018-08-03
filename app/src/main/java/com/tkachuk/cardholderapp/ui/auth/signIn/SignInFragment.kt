@@ -21,9 +21,9 @@ class SignInFragment : Fragment(), ISignInContract.ISingInView{
     }
 
     private fun initListener() {
-        btn_singIn.setOnClickListener {
-            singInPresenter.signIn(tv_login.text as String, tv_password.text as String)
-        }
+//        btn_singIn.setOnClickListener {
+//            singInPresenter.signIn(tv_login.text as String, tv_password.text as String)
+//        }
     }
 
     override fun showSignUp() {
