@@ -6,4 +6,7 @@
     <string name="sign_in">Sign In</string>
     <string name="go_to_signUp">or Sign Up</string>
     <string name="empty">Empty</string>
+    <string name="repeat_passport">Repeat passport</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="icon">icon</string>
 </resources>
