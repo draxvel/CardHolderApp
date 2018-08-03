@@ -2,7 +2,7 @@ package com.tkachuk.cardholderapp.data
 
 import com.tkachuk.cardholderapp.ui.IView
 
-interface IAuth{
+interface IAuthFireBase{
 
     interface SignInCallback: IView {
         fun onSignIn()

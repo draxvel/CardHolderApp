@@ -1,28 +1,16 @@
 package com.tkachuk.cardholderapp.data
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.android.gms.tasks.OnCompleteListener
 
-object Auth: IAuth {
-
-    private lateinit var instance: Auth
+object AuthFireBase: IAuthFireBase {
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-
-//        fun getInstance(): Auth {
-//            if (instance == null) {
-//                instance = Auth()
-//                auth = FirebaseAuth.getInstance()
-//            }
-//            return instance
-//        }
-
 
     override fun isSignIn(): Boolean {
         return auth.currentUser!=null
     }
 
-    override fun signIn(login: String, password: String, callback: IAuth.SignInCallback) {
+    override fun signIn(login: String, password: String, callback: IAuthFireBase.SignInCallback) {
         auth.signInWithEmailAndPassword(login, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 callback.onSignIn()
@@ -35,7 +23,7 @@ object Auth: IAuth {
 
     }
 
-    override fun signUp(login: String, password: String, callback: IAuth.SignUpCallback) {
+    override fun signUp(login: String, password: String, callback: IAuthFireBase.SignUpCallback) {
         auth.createUserWithEmailAndPassword(login, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 callback.onSignUp()
@@ -48,13 +36,13 @@ object Auth: IAuth {
 
     }
 
-    override fun recoverPassword(login: String, callback: IAuth.RecoverPasswordCallback) {
+    override fun recoverPassword(login: String, callback: IAuthFireBase.RecoverPasswordCallback) {
         auth.sendPasswordResetEmail(login)
-                .addOnCompleteListener(OnCompleteListener<Void> {task ->
+                .addOnCompleteListener{task ->
                     if (task.isSuccessful) {
                         callback.onRecover()
                     }
-                })
+                }
     }
 
     override fun signOut() {
