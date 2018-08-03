@@ -35,7 +35,13 @@ class SignInFragment : Fragment(){
 
     private fun initListener() {
         btnsignIn.setOnClickListener {
-            signInPresenter.signIn(tv_login.text.toString(), tv_password.text.toString())
+            tv_login.error = null
+            tv_password.error = null
+            when {
+                tv_login.text.isEmpty() -> tv_login.error = getString(R.string.empty)
+                tv_password.text.isEmpty() -> tv_password.error = getString(R.string.empty)
+                else -> signInPresenter.signIn(tv_login.text.toString(), tv_password.text.toString())
+            }
         }
 
         tvGoToRecoverPassword.setOnClickListener {
