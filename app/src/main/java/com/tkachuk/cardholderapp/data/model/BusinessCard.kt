@@ -1,5 +1,7 @@
 package com.tkachuk.cardholderapp.data.model
 
+import java.io.Serializable
+
 data class BusinessCard(
         val id: Int,
         var name: String,
@@ -8,4 +10,4 @@ data class BusinessCard(
         var email: String,
         var phone: String,
         var location: String,
-        var photoPath: String)
+        var photoPath: String) :Serializable
