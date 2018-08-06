@@ -1,4 +1,4 @@
-package com.tkachuk.cardholderapp
+package com.tkachuk.cardholderapp.ui.main
 
 import com.tkachuk.cardholderapp.data.AuthFireBase
 

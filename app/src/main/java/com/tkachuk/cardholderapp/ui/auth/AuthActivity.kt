@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.tkachuk.cardholderapp.MainActivity
+import com.tkachuk.cardholderapp.ui.main.MainActivity
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.AuthFireBase
 import com.tkachuk.cardholderapp.ui.auth.recoverPassword.RecoverPasswordFragment
