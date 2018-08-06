@@ -1,4 +1,4 @@
-package com.tkachuk.cardholderapp.scanner
+package com.tkachuk.cardholderapp.ui.scanner
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -1,4 +1,4 @@
-package com.tkachuk.cardholderapp.scanner
+package com.tkachuk.cardholderapp.ui.scanner
 
 import android.content.Context
 import android.graphics.Bitmap
