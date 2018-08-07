@@ -14,4 +14,11 @@
     <string name="recover">Recover</string>
     <string name="logout">Logout</string>
     <string name="low_storage_error">Low storage</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="locaion">Location</string>
+    <string name="location">Location</string>
+    <string name="site">Site</string>
+    <string name="phone">Phone</string>
+    <string name="check">check</string>
 </resources>

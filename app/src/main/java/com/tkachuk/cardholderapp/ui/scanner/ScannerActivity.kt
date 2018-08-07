@@ -7,28 +7,24 @@ import android.support.v7.app.AppCompatActivity
 import android.provider.MediaStore
 import android.content.Intent
 import android.support.v4.content.FileProvider
-import android.net.Uri
 import android.os.Environment
+import android.widget.Toast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class ScannerActivity: AppCompatActivity() {
-
+class ScannerActivity: AppCompatActivity(), IScannerContract {
     private val requestImageCode = 1
+
     private lateinit var scannerPresenter: ScannerPresenter
     private var currentPhotoPath: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        scannerPresenter = ScannerPresenter(applicationContext)
+        scannerPresenter = ScannerPresenter(applicationContext,this)
         dispatchTakePictureIntent()
     }
 
-    // startActivityForResult() method is protected by a condition that calls resolveActivity(),
-    // which returns the first activity component that can handle the intent.
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(packageManager) != null) {
@@ -41,12 +37,9 @@ class ScannerActivity: AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == requestImageCode && resultCode == Activity.RESULT_OK){
-
-            val imageUri = Uri.parse("file://$currentPhotoPath")
-            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-            scannerPresenter.scan(bitmap)
-
-        }
+            scannerPresenter.scan(currentPhotoPath.toString())
+            finish()
+        }else finish()
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -62,5 +55,9 @@ class ScannerActivity: AppCompatActivity() {
         )
         currentPhotoPath = image.absolutePath
         return image
+    }
+
+    override fun showMsg(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

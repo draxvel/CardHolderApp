@@ -1,23 +1,24 @@
 package com.tkachuk.cardholderapp.ui.scanner
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.util.Log
 import com.google.android.gms.vision.text.TextRecognizer
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
+import android.provider.MediaStore
 import com.tkachuk.cardholderapp.R
 import com.google.android.gms.vision.Frame
+import com.tkachuk.cardholderapp.ui.addCard.AddNewCardActivity
 import com.tkachuk.cardholderapp.util.BusinessCardParser
 
-class ScannerPresenter(private val context: Context) {
+class ScannerPresenter(private val context: Context, private val iScannerContract: IScannerContract) {
 
-    private val tag: String = "scanner"
+    fun scan(path: String) {
+        val imageUri = Uri.parse("file://$path")
+        val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
 
-    fun scan(bitmap: Bitmap) {
         val textRecognizer = TextRecognizer.Builder(context).build()
         if (!textRecognizer.isOperational) {
-            Log.d(tag, "Detector dependencies are not yet available.")
 
             // Check for low storage.  If there is low storage, the native library will not be
             // downloaded, so detection will not become operational.
@@ -25,11 +26,9 @@ class ScannerPresenter(private val context: Context) {
             val hasLowStorage = context.registerReceiver(null, lowStorageFilter) != null
 
             if (hasLowStorage) {
-                Log.d(tag, context.getString(R.string.low_storage_error))
+                iScannerContract.showMsg(context.getString(R.string.low_storage_error))
             }
-
-        } else Log.d(tag, "Detector dependencies are available.")
-
+        }
 
         val imageFrame = Frame.Builder()
                     .setBitmap(bitmap)
@@ -40,13 +39,18 @@ class ScannerPresenter(private val context: Context) {
         val myList: MutableList<String> = mutableListOf()
         for (i in 0 until textBlocks.size()) {
             val textBlock = textBlocks.get(textBlocks.keyAt(i))
-            Log.d(tag, textBlock.value)
             myList.add(textBlock.value)
         }
 
-        val map = BusinessCardParser.parse(myList)
-        for(item in map){
-            Log.d(tag, "/nkey: "+item.key +", value:"+ item.value)
+        if(myList.isEmpty()){
+            myList.add("")
         }
+        val map:HashMap<String, String> = BusinessCardParser.parse(myList) as HashMap<String, String>
+
+        val intent = Intent(context, AddNewCardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        map["photo"] = imageUri.toString()
+        intent.putExtra("map", map)
+        context.startActivity(intent)
     }
 }

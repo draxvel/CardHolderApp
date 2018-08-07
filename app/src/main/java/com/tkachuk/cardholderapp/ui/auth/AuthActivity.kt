@@ -24,6 +24,7 @@ class AuthActivity : AppCompatActivity(), IAuth {
 
         if (AuthFireBase.isSignIn()) {
             showMainActivity()
+            finish()
         } else {
             replaceFragment(SignInFragment())
         }
