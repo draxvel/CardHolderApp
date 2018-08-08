@@ -28,14 +28,12 @@ class ScannerActivity: AppCompatActivity(), IScannerContract {
         scannerPresenter = ScannerPresenter(applicationContext,this)
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this as Activity,
-                            android.Manifest.permission.CAMERA)) {
-            } else {
+            dispatchTakePictureIntent()
+        } else {
                 ActivityCompat.requestPermissions(this,
                         arrayOf(android.Manifest.permission.CAMERA),
                         requestPermissionCamera)
             }
-        }
     }
 
     private fun dispatchTakePictureIntent() {
