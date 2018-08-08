@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ServerValue
 
 import java.util.*
 import kotlin.collections.HashMap
@@ -25,6 +26,7 @@ object CardDataFireBase: ICardDataFireBase {
         cardMap["site"] = businessCard.site
         cardMap["phone"] = businessCard.phone
         cardMap["email"] = businessCard.email
+        cardMap["timestamp"] = ServerValue.TIMESTAMP
 
         db.child(id).setValue(cardMap).addOnSuccessListener {
             iSaveCallback.onSave()
