@@ -7,18 +7,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.tkachuk.cardholderapp.R
+import com.tkachuk.cardholderapp.data.model.BusinessCard
 import kotlinx.android.synthetic.main.activity_addnewcard.*
-import kotlinx.android.synthetic.main.fragment_signin.*
 
+class AddNewCardActivity: AppCompatActivity(), IAddNewCardContract.IAddNewView {
 
-class AddNewCardActivity: AppCompatActivity() {
-
-    private lateinit var info: HashMap<String, String>
+    private lateinit var addNewCardPresenter: AddNewCardPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addnewcard)
 
+        addNewCardPresenter = AddNewCardPresenter(applicationContext, this)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if(intent.getSerializableExtra("map")!=null) {
@@ -54,8 +54,18 @@ class AddNewCardActivity: AppCompatActivity() {
                 et_name.text.isEmpty() -> et_name.error = getString(R.string.empty)
                 et_phone.text.isEmpty() -> et_phone.error = getString(R.string.empty)
                 else -> {
-                    //TODO save to FireBase
-                    Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show()
+                    addNewCardPresenter.addToServer(BusinessCard(
+                            0,
+                            et_name.text.toString(),
+                            et_description.text.toString(),
+                            et_site.text.toString(),
+                            et_email.text.toString(),
+                            et_phone.text.toString(),
+                            et_location.toString()))
+
+                    if(cb_phone.isChecked){
+                        addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())
+                    }
                     finish()
                     return true
                 }
@@ -68,5 +78,9 @@ class AddNewCardActivity: AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showMsg(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
