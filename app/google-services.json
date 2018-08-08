@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "650698192156-rq55ofj8jf5dh832rjmupad47qv4hi8p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tkachuk.cardholderapp",
+            "certificate_hash": "b4bf871df1f07ca2fa76e38ada9525e0bb3f1b4e"
+          }
+        },
+        {
           "client_id": "650698192156-vlk81v0mn4u3fp6q31bh49otr79dm41a.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650698192156-vlk81v0mn4u3fp6q31bh49otr79dm41a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
