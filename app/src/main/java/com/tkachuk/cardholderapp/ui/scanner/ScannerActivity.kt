@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.provider.MediaStore
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.support.v4.content.FileProvider
 import android.os.Environment
+import android.support.v4.app.ActivityCompat
 import android.widget.Toast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class ScannerActivity: AppCompatActivity(), IScannerContract {
     private val requestImageCode = 1
+    private val requestPermissionCamera = 99
 
     private lateinit var scannerPresenter: ScannerPresenter
     private var currentPhotoPath: String? = null
@@ -22,7 +26,14 @@ class ScannerActivity: AppCompatActivity(), IScannerContract {
         super.onCreate(savedInstanceState)
 
         scannerPresenter = ScannerPresenter(applicationContext,this)
-        dispatchTakePictureIntent()
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent()
+        } else {
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(android.Manifest.permission.CAMERA),
+                        requestPermissionCamera)
+            }
     }
 
     private fun dispatchTakePictureIntent() {
@@ -40,6 +51,17 @@ class ScannerActivity: AppCompatActivity(), IScannerContract {
             scannerPresenter.scan(currentPhotoPath.toString())
             finish()
         }else finish()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            requestPermissionCamera -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent()
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     @SuppressLint("SimpleDateFormat")

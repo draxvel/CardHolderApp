@@ -9,5 +9,4 @@ data class BusinessCard(
         var site: String,
         var email: String,
         var phone: String,
-        var location: String,
-        var photoPath: String) :Serializable
+        var location: String) :Serializable
