@@ -16,7 +16,8 @@ object CardDataFireBase: ICardDataFireBase {
 
     override fun save(businessCard: BusinessCard, iSaveCallback: ICardDataFireBase.ISaveCallback) {
         val cardMap = HashMap<String, Any>()
-        cardMap["id"] = UUID.randomUUID().toString()
+        val id: String = UUID.randomUUID().toString()
+        cardMap["id"] = id
         cardMap["userId"] = currentUser!!.uid
         cardMap["name"] = businessCard.name
         cardMap["description"] = businessCard.description
@@ -25,7 +26,7 @@ object CardDataFireBase: ICardDataFireBase {
         cardMap["phone"] = businessCard.phone
         cardMap["email"] = businessCard.email
 
-        db.setValue(cardMap).addOnSuccessListener {
+        db.child(id).setValue(cardMap).addOnSuccessListener {
             iSaveCallback.onSave()
         }.addOnFailureListener {
             exception -> iSaveCallback.showMsg(exception.toString())
