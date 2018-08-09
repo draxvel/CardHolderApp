@@ -5,18 +5,18 @@
     android:background="@drawable/gradient"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="40dp">
+    android:padding="@dimen/spacing_large">
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/size_large"
         android:src="@drawable/icon"
         android:contentDescription="@string/icon" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/spacing_large"
         android:textColorHint="@color/colorWhite">
 
         <EditText
@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textPersonName"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_large" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:textColorHint="@color/colorWhite">
 
         <EditText
@@ -41,13 +41,13 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_large" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:textColorHint="@color/colorWhite">
 
         <EditText
@@ -56,14 +56,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/repeat_passport"
             android:inputType="textPassword"
-            android:textSize="20sp" />
+            android:textSize="@dimen/text_large" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:background="#79a209df"
         android:text="@string/sign_up"
         android:textColor="@color/colorWhite" />
@@ -73,8 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:text="@string/go_to_SignIn"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_medium" />
 </LinearLayout>
