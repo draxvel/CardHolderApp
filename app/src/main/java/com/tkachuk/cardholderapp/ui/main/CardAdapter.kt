@@ -20,10 +20,20 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
         return items.size
     }
 
+    fun getIdByPosition(position: Int): String {
+        return items[position].id
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
+        holder?.setVisibleForEmtyView(false)
         holder?.vEmpty?.visibility = View.GONE
+
         if (position == items.size - 1)
-            holder?.vEmpty?.visibility = View.VISIBLE
+            holder?.setVisibleForEmtyView(true)
+
+        if (items.size == 1) {
+            holder?.vEmpty?.visibility = View.GONE
+        }
 
         if (items[position].name.isEmpty()) {
             holder?.tvName?.visibility = View.GONE
@@ -66,6 +76,14 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
         val tvEmail = view.tv_email
 
         val vEmpty = view.view_empty
-    }
 
+        fun setVisibleForEmtyView(isVisible: Boolean) {
+            if (isVisible) {
+                vEmpty?.visibility = View.VISIBLE
+            } else {
+                vEmpty?.visibility = View.GONE
+
+            }
+        }
+    }
 }

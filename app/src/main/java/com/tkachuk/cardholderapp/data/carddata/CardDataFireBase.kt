@@ -58,7 +58,12 @@ object CardDataFireBase : ICardDataFireBase {
     }
 
     override fun delete(id: String, iDeleteCallback: ICardDataFireBase.IDeleteCallback) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        db.child(id).removeValue().addOnSuccessListener {
+            iDeleteCallback.onDelete()
+        }
+                .addOnFailureListener {
+                    iDeleteCallback.showMsg(it.message.toString())
+                }
     }
 
     override fun edit(businessCard: BusinessCard) {
