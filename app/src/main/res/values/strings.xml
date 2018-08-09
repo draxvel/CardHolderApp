@@ -22,4 +22,6 @@
     <string name="phone">Phone</string>
     <string name="check">check</string>
     <string name="add_phone_to_contact_list">Add phone to contact list</string>
+    <string name="deleted">Deleted</string>
+    <string name="undo">Undo</string>
 </resources>

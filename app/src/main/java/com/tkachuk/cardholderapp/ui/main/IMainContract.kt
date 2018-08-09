@@ -13,5 +13,6 @@ interface IMainContract {
     interface IMainPresenter {
         fun logout()
         fun loadCardList()
+        fun deleteCard(id: String)
     }
 }

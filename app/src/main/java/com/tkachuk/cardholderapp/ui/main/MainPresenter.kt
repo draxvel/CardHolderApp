@@ -10,6 +10,18 @@ import com.tkachuk.cardholderapp.util.InternetConnection
 class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context)
     : IMainContract.IMainPresenter {
 
+    override fun deleteCard(id: String) {
+        CardDataFireBase.delete(id, iDeleteCallback = object : ICardDataFireBase.IDeleteCallback {
+            override fun onDelete() {
+                iMainView.showMsg("Deleted")
+            }
+
+            override fun showMsg(msg: String) {
+                iMainView.showMsg(msg)
+            }
+        })
+    }
+
     override fun logout() {
         AuthFireBase.signOut()
     }

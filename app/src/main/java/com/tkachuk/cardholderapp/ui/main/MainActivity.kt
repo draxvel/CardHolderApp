@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
@@ -16,12 +17,13 @@ import com.tkachuk.cardholderapp.ui.scanner.ScannerActivity
 class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     private lateinit var mainPresenter: MainPresenter
+    private lateinit var cardAdapter: CardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initListener()
         initPresenter()
+        initListener()
         initRecyclerView()
         mainPresenter.loadCardList()
     }
@@ -45,7 +47,18 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     override fun setCardList(list: List<BusinessCard>) {
-        rv_card_list.adapter = CardAdapter(list.reversed(), this)
+        cardAdapter = CardAdapter(list.reversed(), this)
+        rv_card_list.adapter = cardAdapter
+
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
+            if (it.adapterPosition == cardAdapter.itemCount) {
+                it.setVisibleForEmtyView(true)
+            }
+            val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
+            mainPresenter.deleteCard(id)
+            rv_card_list.adapter.notifyItemRemoved(it.adapterPosition)
+        })
+        itemTouchHelper.attachToRecyclerView(rv_card_list)
     }
 
     override fun showMsg(msg: String) {
