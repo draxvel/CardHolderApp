@@ -2,17 +2,17 @@ package com.tkachuk.cardholderapp.data.auth
 
 import com.tkachuk.cardholderapp.ui.IView
 
-interface IAuthFireBase{
+interface IAuthFireBase {
 
-    interface SignInCallback: IView {
+    interface SignInCallback : IView {
         fun onSignIn()
     }
 
-    interface SignUpCallback: IView {
+    interface SignUpCallback : IView {
         fun onSignUp()
     }
 
-    interface RecoverPasswordCallback: IView {
+    interface RecoverPasswordCallback : IView {
         fun onRecover()
     }
 

@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             startActivity(Intent(this@MainActivity, ScannerActivity::class.java))
         }
 
-        swipe_refresh.setOnRefreshListener{
+        swipe_refresh.setOnRefreshListener {
             mainPresenter.loadCardList()
         }
     }
 
-    private fun initPresenter(){
+    private fun initPresenter() {
         mainPresenter = MainPresenter(this, applicationContext)
     }
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     override fun setCardList(list: List<BusinessCard>) {
-        rv_card_list.adapter = CardAdapter( list.reversed(), this)
+        rv_card_list.adapter = CardAdapter(list.reversed(), this)
     }
 
     override fun showMsg(msg: String) {
@@ -63,18 +63,17 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             mainPresenter.logout()
             finish()
             true
-        }
-        else super.onOptionsItemSelected(item)
+        } else super.onOptionsItemSelected(item)
     }
 
-    override fun setVisibleRefresh(isVisible: Boolean){
+    override fun setVisibleRefresh(isVisible: Boolean) {
         swipe_refresh.isRefreshing = isVisible
 
-        if(isVisible){
+        if (isVisible) {
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }else{
-           window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
     }
 }

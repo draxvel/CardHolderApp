@@ -5,12 +5,12 @@ import com.tkachuk.cardholderapp.ui.IView
 
 interface IMainContract {
 
-    interface IMainView: IView{
+    interface IMainView : IView {
         fun setCardList(list: List<BusinessCard>)
         fun setVisibleRefresh(isVisible: Boolean)
     }
 
-    interface IMainPresenter{
+    interface IMainPresenter {
         fun logout()
         fun loadCardList()
     }

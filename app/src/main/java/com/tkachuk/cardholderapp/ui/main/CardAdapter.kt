@@ -9,7 +9,7 @@ import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardAdapter(val items: List<BusinessCard>, val context: Context): RecyclerView.Adapter<CardAdapter.MyViewHolder>(){
+class CardAdapter(val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context)
@@ -22,30 +22,30 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context): Recycler
 
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
         holder?.vEmpty?.visibility = View.GONE
-        if(position == items.size-1)
+        if (position == items.size - 1)
             holder?.vEmpty?.visibility = View.VISIBLE
 
-        if(items[position].name.isEmpty()){
+        if (items[position].name.isEmpty()) {
             holder?.tvName?.visibility = View.GONE
         }
 
-        if(items[position].description.isEmpty()){
+        if (items[position].description.isEmpty()) {
             holder?.tvDescription?.visibility = View.GONE
         }
 
-        if(items[position].location.isEmpty()){
+        if (items[position].location.isEmpty()) {
             holder?.tvLocation?.visibility = View.GONE
         }
 
-        if(items[position].site.isEmpty()){
+        if (items[position].site.isEmpty()) {
             holder?.tvSite?.visibility = View.GONE
         }
 
-        if(items[position].phone.isEmpty()){
+        if (items[position].phone.isEmpty()) {
             holder?.tvPhone?.visibility = View.GONE
         }
 
-        if(items[position].email.isEmpty()){
+        if (items[position].email.isEmpty()) {
             holder?.tvEmail?.visibility = View.GONE
         }
 
@@ -57,7 +57,7 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context): Recycler
         holder?.tvEmail?.text = items[position].email
     }
 
-    class MyViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvName = view.tv_name
         val tvDescription = view.tv_description
         val tvLocation = view.tv_location

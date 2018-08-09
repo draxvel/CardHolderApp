@@ -2,7 +2,7 @@ package com.tkachuk.cardholderapp.data.model
 
 import java.io.Serializable
 
-class BusinessCard():Serializable {
+class BusinessCard() : Serializable {
 
     var id: String = ""
     var name: String = ""

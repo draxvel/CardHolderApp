@@ -7,7 +7,7 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import java.util.*
 import kotlin.collections.HashMap
 
-object CardDataFireBase: ICardDataFireBase {
+object CardDataFireBase : ICardDataFireBase {
 
     private var currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -28,8 +28,8 @@ object CardDataFireBase: ICardDataFireBase {
 
         db.child(id).setValue(cardMap).addOnSuccessListener {
             iSaveCallback.onSave()
-        }.addOnFailureListener {
-            exception -> iSaveCallback.showMsg(exception.toString())
+        }.addOnFailureListener { exception ->
+            iSaveCallback.showMsg(exception.toString())
         }
     }
 
@@ -39,16 +39,16 @@ object CardDataFireBase: ICardDataFireBase {
 
                 val myList: MutableList<BusinessCard> = mutableListOf()
 
-                for (d in dataSnapshot.children){
+                for (d in dataSnapshot.children) {
                     val card: BusinessCard? = d.getValue(BusinessCard::class.java)
                     if (card != null) {
                         myList.add(card)
                     }
                 }
 
-                if(myList.isNotEmpty()){
+                if (myList.isNotEmpty()) {
                     iLoadCallback.onLoad(myList)
-                }else iLoadCallback.showMsg("Empty!")
+                } else iLoadCallback.showMsg("Empty!")
             }
 
             override fun onCancelled(error: DatabaseError) {

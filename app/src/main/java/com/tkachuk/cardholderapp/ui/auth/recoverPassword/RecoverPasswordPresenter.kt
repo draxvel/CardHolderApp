@@ -11,16 +11,16 @@ class RecoverPasswordPresenter(activity: AuthActivity) : IRecoverPasswordContrac
 
     override fun recover(login: String) {
 
-       AuthFireBase.recoverPassword(login, callback = object : IAuthFireBase.RecoverPasswordCallback{
-           override fun showMsg(msg: String) {
-               iAuth.showMsg(msg)
-           }
+        AuthFireBase.recoverPassword(login, callback = object : IAuthFireBase.RecoverPasswordCallback {
+            override fun showMsg(msg: String) {
+                iAuth.showMsg(msg)
+            }
 
-           override fun onRecover() {
-               iAuth.showMsg("New password sent to your email.")
-               iAuth.showMainActivity()
-           }
-       })
+            override fun onRecover() {
+                iAuth.showMsg("New password sent to your email.")
+                iAuth.showMainActivity()
+            }
+        })
     }
 
     override fun showSignIn() {

@@ -4,10 +4,10 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.IView
 
 interface IAddNewCardContract {
-    interface IAddNewPresenter{
+    interface IAddNewPresenter {
         fun addToContactList(name: String, phone: String)
         fun addToServer(businessCard: BusinessCard)
     }
 
-    interface IAddNewView: IView
+    interface IAddNewView : IView
 }

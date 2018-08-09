@@ -15,7 +15,7 @@ class RecoverPasswordFragment : Fragment() {
     private lateinit var root: View
     private lateinit var recoverPasswordPresenter: RecoverPasswordPresenter
     private lateinit var btnRecover: Button
-    private lateinit var tvLogin:TextView
+    private lateinit var tvLogin: TextView
     private lateinit var tvGoToSignIn: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,11 +33,11 @@ class RecoverPasswordFragment : Fragment() {
     }
 
     private fun initListener() {
-        btnRecover.setOnClickListener{
+        btnRecover.setOnClickListener {
             tvLogin.error = null
-            if(tvLogin.text.isEmpty()){
+            if (tvLogin.text.isEmpty()) {
                 tvLogin.error = getString(R.string.empty)
-            }else recoverPasswordPresenter.recover(tvLogin.text.toString())
+            } else recoverPasswordPresenter.recover(tvLogin.text.toString())
         }
         tvGoToSignIn.setOnClickListener {
             recoverPasswordPresenter.showSignIn()

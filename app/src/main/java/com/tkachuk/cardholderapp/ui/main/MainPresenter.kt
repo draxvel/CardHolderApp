@@ -8,9 +8,9 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.util.InternetConnection
 
 class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context)
-                    : IMainContract.IMainPresenter {
+    : IMainContract.IMainPresenter {
 
-    override fun logout(){
+    override fun logout() {
         AuthFireBase.signOut()
     }
 
@@ -31,6 +31,6 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
                     iMainView.setVisibleRefresh(false)
                 }
             })
-        }else iMainView.showMsg("No Internet connection")
+        } else iMainView.showMsg("No Internet connection")
     }
 }
