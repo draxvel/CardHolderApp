@@ -1,7 +1,7 @@
 package com.tkachuk.cardholderapp.ui.auth.singUp
 
-import com.tkachuk.cardholderapp.data.AuthFireBase
-import com.tkachuk.cardholderapp.data.IAuthFireBase
+import com.tkachuk.cardholderapp.data.auth.AuthFireBase
+import com.tkachuk.cardholderapp.data.auth.IAuthFireBase
 import com.tkachuk.cardholderapp.ui.auth.AuthActivity
 
 class SignUpPresenter(activity: AuthActivity) : ISignUpContract.ISignUpPresenter {

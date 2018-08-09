@@ -1,7 +1,7 @@
 package com.tkachuk.cardholderapp.ui.addCard
 
-import com.tkachuk.cardholderapp.data.CardDataFireBase
-import com.tkachuk.cardholderapp.data.ICardDataFireBase
+import com.tkachuk.cardholderapp.data.carddata.CardDataFireBase
+import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import android.provider.ContactsContract
 import android.content.Context

@@ -1,28 +1,28 @@
-package com.tkachuk.cardholderapp.data
+package com.tkachuk.cardholderapp.data.carddata
 
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.IView
 
 interface ICardDataFireBase {
 
-    interface ISaveCallback:IView{
+    interface ISaveCallback: IView{
         fun onSave()
     }
 
-    interface ILoadCallback:IView{
-        fun onLoad()
+    interface ILoadCallback: IView{
+        fun onLoad(list: List<BusinessCard>)
     }
 
-    interface IDeleteCallback:IView{
+    interface IDeleteCallback: IView{
         fun onDelete()
     }
 
-    interface IEditCallback:IView{
+    interface IEditCallback: IView{
         fun onEdit()
     }
 
     fun save (businessCard: BusinessCard, iSaveCallback: ISaveCallback)
-    fun load (iLoadCallback: ILoadCallback): List<BusinessCard>
+    fun load (iLoadCallback: ILoadCallback)
 
     fun delete (id: String, iDeleteCallback: IDeleteCallback)
     fun edit (businessCard: BusinessCard)

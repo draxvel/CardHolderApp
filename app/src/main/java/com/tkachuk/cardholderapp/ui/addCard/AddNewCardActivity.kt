@@ -55,13 +55,13 @@ class AddNewCardActivity: AppCompatActivity(), IAddNewCardContract.IAddNewView {
                 et_phone.text.isEmpty() -> et_phone.error = getString(R.string.empty)
                 else -> {
                     addNewCardPresenter.addToServer(BusinessCard(
-                            0,
+                            "",
                             et_name.text.toString(),
                             et_description.text.toString(),
                             et_site.text.toString(),
                             et_email.text.toString(),
                             et_phone.text.toString(),
-                            et_location.toString()))
+                            et_location.text.toString()))
 
                     if(cb_phone.isChecked){
                         addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())

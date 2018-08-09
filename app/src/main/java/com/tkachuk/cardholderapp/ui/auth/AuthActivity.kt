@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.tkachuk.cardholderapp.ui.main.MainActivity
 import com.tkachuk.cardholderapp.R
-import com.tkachuk.cardholderapp.data.AuthFireBase
+import com.tkachuk.cardholderapp.data.auth.AuthFireBase
 import com.tkachuk.cardholderapp.ui.auth.recoverPassword.RecoverPasswordFragment
 import com.tkachuk.cardholderapp.ui.auth.signIn.SignInFragment
 import com.tkachuk.cardholderapp.ui.auth.singUp.SignUpFragment
