@@ -1,7 +1,7 @@
 package com.tkachuk.cardholderapp.util
 
 object BusinessCardParser {
-    fun parse (myList: MutableList<String>): Map<String, String> {
+    fun parse(myList: MutableList<String>): Map<String, String> {
         val info: MutableMap<String, String> = mutableMapOf()
         info["name"] = ""
         val name = myList[0]
@@ -11,8 +11,8 @@ object BusinessCardParser {
         info["email"] = email
         info["name"] = name
         var description = ""
-        for(item in myList){
-            if((item!=phone && item!=email) && item!= name){
+        for (item in myList) {
+            if ((item != phone && item != email) && item != name) {
                 description += item
             }
         }

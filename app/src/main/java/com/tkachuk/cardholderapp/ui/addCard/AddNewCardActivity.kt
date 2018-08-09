@@ -8,9 +8,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
+import com.tkachuk.cardholderapp.util.InternetConnection
 import kotlinx.android.synthetic.main.activity_addnewcard.*
 
-class AddNewCardActivity: AppCompatActivity(), IAddNewCardContract.IAddNewView {
+class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView {
 
     private lateinit var addNewCardPresenter: AddNewCardPresenter
 
@@ -21,7 +22,7 @@ class AddNewCardActivity: AppCompatActivity(), IAddNewCardContract.IAddNewView {
         addNewCardPresenter = AddNewCardPresenter(applicationContext, this)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        if(intent.getSerializableExtra("map")!=null) {
+        if (intent.getSerializableExtra("map") != null) {
             val info: HashMap<String, String> =
                     intent.getSerializableExtra("map") as HashMap<String, String>
             setUpView(info)
@@ -54,20 +55,23 @@ class AddNewCardActivity: AppCompatActivity(), IAddNewCardContract.IAddNewView {
                 et_name.text.isEmpty() -> et_name.error = getString(R.string.empty)
                 et_phone.text.isEmpty() -> et_phone.error = getString(R.string.empty)
                 else -> {
-                    addNewCardPresenter.addToServer(BusinessCard(
-                            0,
-                            et_name.text.toString(),
-                            et_description.text.toString(),
-                            et_site.text.toString(),
-                            et_email.text.toString(),
-                            et_phone.text.toString(),
-                            et_location.toString()))
+                    if (InternetConnection.isNetworkAvailable(applicationContext)) {
+                        addNewCardPresenter.addToServer(BusinessCard(
+                                "",
+                                et_name.text.toString(),
+                                et_description.text.toString(),
+                                et_site.text.toString(),
+                                et_email.text.toString(),
+                                et_phone.text.toString(),
+                                et_location.text.toString()))
 
-                    if(cb_phone.isChecked){
-                        addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())
-                    }
-                    finish()
-                    return true
+                        if (cb_phone.isChecked) {
+                            addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())
+                        }
+                        finish()
+                        return true
+                    } else showMsg("No Internet connection")
+
                 }
             }
         }

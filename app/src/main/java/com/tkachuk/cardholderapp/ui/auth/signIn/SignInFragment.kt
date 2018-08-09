@@ -11,7 +11,7 @@ import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.fragment_signin.*
 
-class SignInFragment : Fragment(){
+class SignInFragment : Fragment() {
 
     private lateinit var root: View
     private lateinit var signInPresenter: SignInPresenter

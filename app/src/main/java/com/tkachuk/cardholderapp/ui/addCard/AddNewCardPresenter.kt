@@ -1,13 +1,13 @@
 package com.tkachuk.cardholderapp.ui.addCard
 
-import com.tkachuk.cardholderapp.data.CardDataFireBase
-import com.tkachuk.cardholderapp.data.ICardDataFireBase
+import com.tkachuk.cardholderapp.data.carddata.CardDataFireBase
+import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import android.provider.ContactsContract
 import android.content.Context
 import android.content.Intent
 
-class AddNewCardPresenter(private var context: Context, private var iAddNewView: IAddNewCardContract.IAddNewView): IAddNewCardContract.IAddNewPresenter {
+class AddNewCardPresenter(private var context: Context, private var iAddNewView: IAddNewCardContract.IAddNewView) : IAddNewCardContract.IAddNewPresenter {
 
     override fun addToContactList(name: String, phone: String) {
         val intent = Intent(Intent.ACTION_INSERT)
@@ -20,7 +20,7 @@ class AddNewCardPresenter(private var context: Context, private var iAddNewView:
     }
 
     override fun addToServer(businessCard: BusinessCard) {
-        CardDataFireBase.save(businessCard, iSaveCallback = object: ICardDataFireBase.ISaveCallback{
+        CardDataFireBase.save(businessCard, iSaveCallback = object : ICardDataFireBase.ISaveCallback {
             override fun onSave() {
                 iAddNewView.showMsg("Saved to server")
             }

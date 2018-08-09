@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ScannerActivity: AppCompatActivity(), IScannerContract {
+class ScannerActivity : AppCompatActivity(), IScannerContract {
     private val requestImageCode = 1
     private val requestPermissionCamera = 99
 
@@ -25,15 +25,15 @@ class ScannerActivity: AppCompatActivity(), IScannerContract {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        scannerPresenter = ScannerPresenter(applicationContext,this)
+        scannerPresenter = ScannerPresenter(applicationContext, this)
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             dispatchTakePictureIntent()
         } else {
-                ActivityCompat.requestPermissions(this,
-                        arrayOf(android.Manifest.permission.CAMERA),
-                        requestPermissionCamera)
-            }
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(android.Manifest.permission.CAMERA),
+                    requestPermissionCamera)
+        }
     }
 
     private fun dispatchTakePictureIntent() {
@@ -47,10 +47,10 @@ class ScannerActivity: AppCompatActivity(), IScannerContract {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == requestImageCode && resultCode == Activity.RESULT_OK){
+        if (requestCode == requestImageCode && resultCode == Activity.RESULT_OK) {
             scannerPresenter.scan(currentPhotoPath.toString())
             finish()
-        }else finish()
+        } else finish()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

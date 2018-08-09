@@ -2,7 +2,7 @@ package com.tkachuk.cardholderapp.ui.auth.recoverPassword
 
 class IRecoverPasswordContract {
 
-    interface IRecoverPasswordPresenter{
+    interface IRecoverPasswordPresenter {
         fun recover(login: String)
         fun showSignIn()
     }

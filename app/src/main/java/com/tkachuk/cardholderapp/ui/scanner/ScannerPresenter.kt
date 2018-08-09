@@ -31,8 +31,8 @@ class ScannerPresenter(private val context: Context, private val iScannerContrac
         }
 
         val imageFrame = Frame.Builder()
-                    .setBitmap(bitmap)
-                    .build()
+                .setBitmap(bitmap)
+                .build()
 
         val textBlocks = textRecognizer.detect(imageFrame)
 
@@ -42,10 +42,10 @@ class ScannerPresenter(private val context: Context, private val iScannerContrac
             myList.add(textBlock.value)
         }
 
-        if(myList.isEmpty()){
+        if (myList.isEmpty()) {
             myList.add("")
         }
-        val map:HashMap<String, String> = BusinessCardParser.parse(myList) as HashMap<String, String>
+        val map: HashMap<String, String> = BusinessCardParser.parse(myList) as HashMap<String, String>
 
         val intent = Intent(context, AddNewCardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
