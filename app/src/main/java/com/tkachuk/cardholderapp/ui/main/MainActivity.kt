@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     private lateinit var mainPresenter: MainPresenter
     private lateinit var cardAdapter: CardAdapter
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,21 +70,24 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
-        val searchView: SearchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
-        searchView.queryHint = getString(R.string.search)
-        searchView.setIconifiedByDefault(true)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
+        searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+        searchView?.setIconifiedByDefault(true)
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                        mainPresenter.searchCard(newText)
+                }
                 return false
-            }
-
-        })
-
+            }})
         return true
     }
 
