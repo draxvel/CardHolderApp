@@ -17,7 +17,7 @@ interface ICardDataFireBase {
         fun onDelete()
     }
 
-    interface IEditCallback : IView {
+    interface IUpdateCallback : IView {
         fun onEdit()
     }
 
@@ -25,5 +25,5 @@ interface ICardDataFireBase {
     fun load(iLoadCallback: ILoadCallback)
 
     fun delete(id: String, iDeleteCallback: IDeleteCallback)
-    fun edit(businessCard: BusinessCard)
+    fun updateCard(businessCard: BusinessCard, iUpdateCallback: IUpdateCallback)
 }
