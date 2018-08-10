@@ -7,7 +7,7 @@ import android.provider.ContactsContract
 import android.content.Context
 import android.content.Intent
 
-class AddNewCardPresenter(private var context: Context, private var iAddNewView: IAddNewCardContract.IAddNewView) : IAddNewCardContract.IAddNewPresenter {
+class EditCardPresenter(private var context: Context, private var editView: EditCardContract.IEditView) : EditCardContract.IEditCardPresenter {
 
     override fun addToContactList(name: String, phone: String) {
         val intent = Intent(Intent.ACTION_INSERT)
@@ -22,11 +22,23 @@ class AddNewCardPresenter(private var context: Context, private var iAddNewView:
     override fun addToServer(businessCard: BusinessCard) {
         CardDataFireBase.save(businessCard, iSaveCallback = object : ICardDataFireBase.ISaveCallback {
             override fun onSave() {
-                iAddNewView.showMsg("Saved to server")
+                editView.showMsg("Saved to server")
             }
 
             override fun showMsg(msg: String) {
-                iAddNewView.showMsg(msg)
+                editView.showMsg(msg)
+            }
+        })
+    }
+
+    override fun updateCard(businessCard: BusinessCard) {
+        CardDataFireBase.updateCard(businessCard, iUpdateCallback = object : ICardDataFireBase.IUpdateCallback {
+            override fun onEdit() {
+                editView.showMsg("Updated")
+            }
+
+            override fun showMsg(msg: String) {
+                editView.showMsg(msg)
             }
         })
     }

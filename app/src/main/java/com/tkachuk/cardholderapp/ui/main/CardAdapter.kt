@@ -1,12 +1,14 @@
 package com.tkachuk.cardholderapp.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
+import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
 
 class CardAdapter(val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
@@ -65,6 +67,14 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
         holder?.tvSite?.text = items[position].site
         holder?.tvPhone?.text = items[position].phone
         holder?.tvEmail?.text = items[position].email
+
+        holder?.itemView?.setOnClickListener {
+            val businessCard: BusinessCard = items[position]
+            val intent = Intent(context, EditCardActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra("card", businessCard)
+            context.startActivity(intent)
+        }
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -82,7 +92,6 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
                 vEmpty?.visibility = View.VISIBLE
             } else {
                 vEmpty?.visibility = View.GONE
-
             }
         }
     }

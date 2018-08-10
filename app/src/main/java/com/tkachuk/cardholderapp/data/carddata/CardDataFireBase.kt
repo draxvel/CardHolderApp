@@ -66,7 +66,21 @@ object CardDataFireBase : ICardDataFireBase {
                 }
     }
 
-    override fun edit(businessCard: BusinessCard) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun updateCard(businessCard: BusinessCard, iUpdateCallback: ICardDataFireBase.IUpdateCallback) {
+        val cardMap = HashMap<String, Any>()
+        cardMap["id"] = businessCard.id
+        cardMap["userId"] = currentUser!!.uid
+        cardMap["name"] = businessCard.name
+        cardMap["description"] = businessCard.description
+        cardMap["location"] = businessCard.location
+        cardMap["site"] = businessCard.site
+        cardMap["phone"] = businessCard.phone
+        cardMap["email"] = businessCard.email
+
+        db.child(businessCard.id).setValue(cardMap).addOnSuccessListener {
+            iUpdateCallback.onEdit()
+        }.addOnFailureListener { exception ->
+            iUpdateCallback.showMsg(exception.toString())
+        }
     }
 }
