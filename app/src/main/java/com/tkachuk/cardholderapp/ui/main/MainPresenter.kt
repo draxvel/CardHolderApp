@@ -1,7 +1,6 @@
 package com.tkachuk.cardholderapp.ui.main
 
 import android.content.Context
-import android.util.Log
 import com.tkachuk.cardholderapp.data.auth.AuthFireBase
 import com.tkachuk.cardholderapp.data.carddata.CardDataFireBase
 import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
@@ -52,19 +51,17 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
 
     override fun searchCard(query: String) {
         val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
-        if(localList!=null){
-            if(localList!=null && localList!!.isNotEmpty()){
-                for(item in localList!!){
-                    if(item.name.toLowerCase().startsWith(query.toLowerCase())){
+        if (localList != null) {
+            if (localList != null && localList!!.isNotEmpty()) {
+                for (item in localList!!) {
+                    if (item.name.toLowerCase().startsWith(query.toLowerCase())) {
                         filteredOutPut.add(item)
                     }
                 }
-
-                if(filteredOutPut.isNotEmpty()){
-                    Log.d("draxvel filtered = ", filteredOutPut.toString())
+                if (filteredOutPut.isNotEmpty()) {
                     iMainView.setCardList(filteredOutPut)
                 }
-            }else iMainView.showMsg("Empty List")
+            } else iMainView.showMsg("Empty List")
         }
     }
 }

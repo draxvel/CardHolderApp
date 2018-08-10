@@ -77,17 +77,18 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         super.onPrepareOptionsMenu(menu)
         searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
         searchView?.setIconifiedByDefault(true)
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                        mainPresenter.searchCard(newText)
+                    mainPresenter.searchCard(newText)
                 }
                 return false
-            }})
+            }
+        })
         return true
     }
 
