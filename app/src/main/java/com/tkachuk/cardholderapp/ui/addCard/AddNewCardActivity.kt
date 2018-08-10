@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_addnewcard.*
 class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView {
 
     private lateinit var addNewCardPresenter: AddNewCardPresenter
+    private var isEdit: Boolean = false
+    private var idForEditCard: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,14 @@ class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView 
             val info: HashMap<String, String> =
                     intent.getSerializableExtra("map") as HashMap<String, String>
             setUpView(info)
+            isEdit = false
+        }
+
+        if (intent.getSerializableExtra("card") != null) {
+            val businessCard: BusinessCard =
+                    intent.getSerializableExtra("card") as BusinessCard
+            isEdit = true
+            setUpView(businessCard)
         }
     }
 
@@ -37,6 +47,16 @@ class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView 
         et_phone.setText(info["phone"])
         et_email.setText(info["email"])
         iv_card.setImageURI(Uri.parse(info["photo"]))
+    }
+
+    private fun setUpView(card: BusinessCard) {
+        et_name.setText(card.name)
+        et_description.setText(card.description)
+        et_location.setText(card.location)
+        et_site.setText(card.site)
+        et_phone.setText(card.phone)
+        et_email.setText(card.email)
+        idForEditCard = card.id
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,14 +76,24 @@ class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView 
                 et_phone.text.isEmpty() -> et_phone.error = getString(R.string.empty)
                 else -> {
                     if (InternetConnection.isNetworkAvailable(applicationContext)) {
-                        addNewCardPresenter.addToServer(BusinessCard(
+
+                        val businessCard = BusinessCard(
                                 "",
                                 et_name.text.toString(),
                                 et_description.text.toString(),
                                 et_site.text.toString(),
                                 et_email.text.toString(),
                                 et_phone.text.toString(),
-                                et_location.text.toString()))
+                                et_location.text.toString())
+                        when {
+                            !isEdit -> {
+                                addNewCardPresenter.addToServer(businessCard)
+                            }
+                            isEdit -> {
+                                businessCard.id = idForEditCard
+                                addNewCardPresenter.updateCard(businessCard)
+                            }
+                        }
 
                         if (cb_phone.isChecked) {
                             addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())

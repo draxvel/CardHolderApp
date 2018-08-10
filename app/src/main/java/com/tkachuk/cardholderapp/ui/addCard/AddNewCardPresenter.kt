@@ -30,4 +30,17 @@ class AddNewCardPresenter(private var context: Context, private var iAddNewView:
             }
         })
     }
+
+    override fun updateCard(businessCard: BusinessCard) {
+        CardDataFireBase.updateCard(businessCard, iUpdateCallback = object : ICardDataFireBase.IUpdateCallback{
+            override fun onEdit() {
+                iAddNewView.showMsg("Updated")
+            }
+
+            override fun showMsg(msg: String) {
+                iAddNewView.showMsg(msg)
+            }
+
+        })
+    }
 }

@@ -7,6 +7,7 @@ interface IAddNewCardContract {
     interface IAddNewPresenter {
         fun addToContactList(name: String, phone: String)
         fun addToServer(businessCard: BusinessCard)
+        fun updateCard(businessCard: BusinessCard)
     }
 
     interface IAddNewView : IView
