@@ -9,15 +9,13 @@ import kotlin.collections.HashMap
 
 object CardDataFireBase : ICardDataFireBase {
 
-    private var currentUser = FirebaseAuth.getInstance().currentUser
-
     private var db: DatabaseReference = FirebaseDatabase.getInstance().getReference("Cards")
 
     override fun save(businessCard: BusinessCard, iSaveCallback: ICardDataFireBase.ISaveCallback) {
         val cardMap = HashMap<String, Any>()
         val id: String = UUID.randomUUID().toString()
         cardMap["id"] = id
-        cardMap["userId"] = currentUser!!.uid
+        cardMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
         cardMap["name"] = businessCard.name
         cardMap["description"] = businessCard.description
         cardMap["location"] = businessCard.location
@@ -41,7 +39,7 @@ object CardDataFireBase : ICardDataFireBase {
 
                 for (d in dataSnapshot.children) {
                     val card: BusinessCard? = d.getValue(BusinessCard::class.java)
-                    if (card != null) {
+                    if (card != null && d.child("userId").value == FirebaseAuth.getInstance().currentUser!!.uid) {
                         myList.add(card)
                     }
                 }
@@ -69,7 +67,7 @@ object CardDataFireBase : ICardDataFireBase {
     override fun updateCard(businessCard: BusinessCard, iUpdateCallback: ICardDataFireBase.IUpdateCallback) {
         val cardMap = HashMap<String, Any>()
         cardMap["id"] = businessCard.id
-        cardMap["userId"] = currentUser!!.uid
+        cardMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
         cardMap["name"] = businessCard.name
         cardMap["description"] = businessCard.description
         cardMap["location"] = businessCard.location

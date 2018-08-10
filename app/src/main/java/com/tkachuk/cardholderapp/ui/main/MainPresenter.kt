@@ -42,8 +42,8 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
                 }
 
                 override fun showMsg(msg: String) {
-                    iMainView.showMsg(msg)
                     iMainView.setVisibleRefresh(false)
+                    iMainView.showMsg(msg)
                 }
             })
         } else iMainView.showMsg("No Internet connection")
