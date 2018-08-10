@@ -9,19 +9,19 @@ import android.widget.Toast
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.util.InternetConnection
-import kotlinx.android.synthetic.main.activity_addnewcard.*
+import kotlinx.android.synthetic.main.activity_edit.*
 
-class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView {
+class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
 
-    private lateinit var addNewCardPresenter: AddNewCardPresenter
+    private lateinit var editCardPresenter: EditCardPresenter
     private var isEdit: Boolean = false
     private var idForEditCard: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_addnewcard)
+        setContentView(R.layout.activity_edit)
 
-        addNewCardPresenter = AddNewCardPresenter(applicationContext, this)
+        editCardPresenter = EditCardPresenter(applicationContext, this)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if (intent.getSerializableExtra("map") != null) {
@@ -87,16 +87,16 @@ class AddNewCardActivity : AppCompatActivity(), IAddNewCardContract.IAddNewView 
                                 et_location.text.toString())
                         when {
                             !isEdit -> {
-                                addNewCardPresenter.addToServer(businessCard)
+                                editCardPresenter.addToServer(businessCard)
                             }
                             isEdit -> {
                                 businessCard.id = idForEditCard
-                                addNewCardPresenter.updateCard(businessCard)
+                                editCardPresenter.updateCard(businessCard)
                             }
                         }
 
                         if (cb_phone.isChecked) {
-                            addNewCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())
+                            editCardPresenter.addToContactList(et_name.text.toString(), et_phone.text.toString())
                         }
                         finish()
                         return true

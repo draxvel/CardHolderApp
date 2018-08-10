@@ -8,7 +8,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import com.tkachuk.cardholderapp.R
 import com.google.android.gms.vision.Frame
-import com.tkachuk.cardholderapp.ui.addCard.AddNewCardActivity
+import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import com.tkachuk.cardholderapp.util.BusinessCardParser
 
 class ScannerPresenter(private val context: Context, private val iScannerContract: IScannerContract) {
@@ -47,7 +47,7 @@ class ScannerPresenter(private val context: Context, private val iScannerContrac
         }
         val map: HashMap<String, String> = BusinessCardParser.parse(myList) as HashMap<String, String>
 
-        val intent = Intent(context, AddNewCardActivity::class.java)
+        val intent = Intent(context, EditCardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         map["photo"] = imageUri.toString()
         intent.putExtra("map", map)

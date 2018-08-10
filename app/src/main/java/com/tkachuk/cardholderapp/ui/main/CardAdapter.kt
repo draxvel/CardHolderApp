@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
-import com.tkachuk.cardholderapp.ui.addCard.AddNewCardActivity
+import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
 
 class CardAdapter(val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
@@ -68,9 +68,9 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
         holder?.tvPhone?.text = items[position].phone
         holder?.tvEmail?.text = items[position].email
 
-        holder?.itemView?.setOnClickListener{
+        holder?.itemView?.setOnClickListener {
             val businessCard: BusinessCard = items[position]
-            val intent = Intent(context, AddNewCardActivity::class.java)
+            val intent = Intent(context, EditCardActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("card", businessCard)
             context.startActivity(intent)
