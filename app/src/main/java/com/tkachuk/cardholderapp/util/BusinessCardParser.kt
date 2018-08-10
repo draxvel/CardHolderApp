@@ -3,20 +3,23 @@ package com.tkachuk.cardholderapp.util
 object BusinessCardParser {
     fun parse(myList: MutableList<String>): Map<String, String> {
         val info: MutableMap<String, String> = mutableMapOf()
-        info["name"] = ""
         val name = myList[0]
+        val description = myList[1]
         val phone = findPhoneNumber(myList)
         val email = findEmail(myList)
-        info["phone"] = phone
-        info["email"] = email
-        info["name"] = name
-        var description = ""
+        var location = ""
         for (item in myList) {
-            if ((item != phone && item != email) && item != name) {
-                description += item
+            if ((!item.matches(phone.toRegex()) && !item.matches(email.toRegex()))
+                    &&
+                    (!item.matches(name.toRegex()) && !item.matches(description.toRegex()))) {
+                location += item
             }
         }
+        info["name"] = name
         info["description"] = description
+        info["location"] = location
+        info["phone"] = phone
+        info["email"] = email
         return info
     }
 

@@ -44,6 +44,7 @@ class ScannerPresenter(private val context: Context, private val iScannerContrac
 
         if (myList.isEmpty()) {
             myList.add("")
+            myList.add("")
         }
         val map: HashMap<String, String> = BusinessCardParser.parse(myList) as HashMap<String, String>
 
