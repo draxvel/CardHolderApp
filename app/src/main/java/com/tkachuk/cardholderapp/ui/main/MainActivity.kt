@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     private lateinit var mainPresenter: MainPresenter
     private lateinit var cardAdapter: CardAdapter
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +70,25 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
+        searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+        searchView?.setIconifiedByDefault(true)
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    mainPresenter.searchCard(newText)
+                }
+                return false
+            }
+        })
         return true
     }
 

@@ -10,6 +10,8 @@ import com.tkachuk.cardholderapp.util.InternetConnection
 class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context)
     : IMainContract.IMainPresenter {
 
+    private var localList: List<BusinessCard>? = null
+
     override fun deleteCard(id: String) {
         CardDataFireBase.delete(id, iDeleteCallback = object : ICardDataFireBase.IDeleteCallback {
             override fun onDelete() {
@@ -36,6 +38,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
                 override fun onLoad(list: List<BusinessCard>) {
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
+                    localList = list
                 }
 
                 override fun showMsg(msg: String) {
@@ -44,5 +47,21 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
                 }
             })
         } else iMainView.showMsg("No Internet connection")
+    }
+
+    override fun searchCard(query: String) {
+        val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
+        if (localList != null) {
+            if (localList != null && localList!!.isNotEmpty()) {
+                for (item in localList!!) {
+                    if (item.name.toLowerCase().startsWith(query.toLowerCase())) {
+                        filteredOutPut.add(item)
+                    }
+                }
+                if (filteredOutPut.isNotEmpty()) {
+                    iMainView.setCardList(filteredOutPut)
+                }
+            } else iMainView.showMsg("Empty List")
+        }
     }
 }

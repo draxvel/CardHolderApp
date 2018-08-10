@@ -14,5 +14,6 @@ interface IMainContract {
         fun logout()
         fun loadCardList()
         fun deleteCard(id: String)
+        fun searchCard(query: String)
     }
 }
