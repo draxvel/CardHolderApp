@@ -131,7 +131,6 @@
                 android:layout_marginRight="@dimen/spacing_medium"
                 android:layout_marginStart="@dimen/spacing_medium"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:src="@drawable/icon"
                 android:adjustViewBounds="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraint"
