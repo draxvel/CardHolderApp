@@ -11,7 +11,7 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardAdapter(val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
+class CardAdapter(private val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context)
