@@ -8,9 +8,11 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.View
 import com.tkachuk.cardholderapp.R
+import kotlinx.android.synthetic.main.item_card.view.*
 
-class SwipeToDeleteHandler(context: Context, private val itemCount: Int, private val onDelete: (CardAdapter.MyViewHolder) -> Unit) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+class SwipeToDeleteHandler(context: Context, private val onDelete: (CardAdapter.MyViewHolder) -> Unit) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
     private val background = ColorDrawable(Color.RED)
     private val xMark = ContextCompat.getDrawable(context, R.mipmap.ic_delete)?.apply {
         setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
@@ -34,7 +36,7 @@ class SwipeToDeleteHandler(context: Context, private val itemCount: Int, private
 
             var customBottom = view.bottom
 
-            if(viewHolder.adapterPosition == itemCount-1){
+            if(view.view_empty.visibility == View.VISIBLE){
                 customBottom= view.bottom-200
             }
 
