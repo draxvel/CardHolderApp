@@ -1,83 +1,149 @@
-<LinearLayout
+<android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_post_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/spacing_small"
+    android:layout_margin="@dimen/spacing_small"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_small"
-        android:background="@drawable/layout_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_name"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/icon"
+            app:layout_constraintEnd_toStartOf="@+id/tv_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name"
+            app:srcCompat="@mipmap/ic_person" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:paddingLeft="@dimen/spacing_medium"
-            android:paddingTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:ems="15"
             android:hint="@string/name"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_name"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_description"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/icon"
+            app:layout_constraintEnd_toStartOf="@+id/tv_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_description"
+            app:srcCompat="@mipmap/ic_description" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:paddingLeft="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:ems="15"
             android:hint="@string/description"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_description"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/icon"
+            app:layout_constraintEnd_toStartOf="@+id/tv_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_location"
+            app:srcCompat="@mipmap/ic_location" />
 
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:paddingLeft="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:ems="15"
             android:hint="@string/location"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_location"
             app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
+        <ImageView
+            android:id="@+id/iv_site"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_site"
+            app:layout_constraintTop_toTopOf="@+id/tv_site"
+            app:srcCompat="@mipmap/ic_browser"
+            android:contentDescription="@string/icon" />
 
         <TextView
             android:id="@+id/tv_site"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
+            android:layout_margin="@dimen/spacing_medium"
             android:ems="10"
             android:hint="@string/site"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
+        <ImageView
+            android:id="@+id/iv_email"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_email"
+            app:layout_constraintTop_toTopOf="@+id/tv_email"
+            app:srcCompat="@mipmap/ic_email"
+            android:contentDescription="@string/icon" />
+
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
+            android:layout_margin="@dimen/spacing_medium"
             android:ems="10"
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_site" />
 
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="@dimen/size_small"
+            android:layout_height="@dimen/size_small"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_phone"
+            app:layout_constraintTop_toTopOf="@+id/tv_phone"
+            app:srcCompat="@mipmap/ic_phone"
+            android:contentDescription="@string/icon" />
+
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:paddingBottom="@dimen/spacing_small"
+            android:layout_margin="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:ems="10"
             android:hint="@string/phone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,4 +160,4 @@
         app:layout_constraintTop_toBottomOf="@+id/constraint" >
     </View>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
