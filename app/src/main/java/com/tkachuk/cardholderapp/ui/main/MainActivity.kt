@@ -49,16 +49,18 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     override fun setCardList(list: List<BusinessCard>) {
-        cardAdapter = CardAdapter(list.reversed(), this)
+
+        val reversedList: List<BusinessCard> = list.reversed()
+        val mList = reversedList.toMutableList()
+
+        cardAdapter = CardAdapter(mList, this)
         rv_card_list.adapter = cardAdapter
 
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
-            if (it.adapterPosition == cardAdapter.itemCount) {
-                it.setVisibleForEmtyView(true)
-            }
             val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
             mainPresenter.deleteCard(id)
-            rv_card_list.adapter.notifyItemRemoved(it.adapterPosition)
+            cardAdapter.removeObject(it.adapterPosition)
+            cardAdapter.notifyItemRemoved(it.adapterPosition)
         })
         itemTouchHelper.attachToRecyclerView(rv_card_list)
     }

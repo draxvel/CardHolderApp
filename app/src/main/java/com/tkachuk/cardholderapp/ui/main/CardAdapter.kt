@@ -11,7 +11,7 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardAdapter(val items: List<BusinessCard>, val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
+class CardAdapter(private val items: MutableList<BusinessCard>, private val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context)
@@ -22,16 +22,22 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
         return items.size
     }
 
+    fun removeObject(position: Int) {
+        if(items.isNotEmpty()){
+            items.removeAt(position)
+        }
+    }
+
     fun getIdByPosition(position: Int): String {
         return items[position].id
     }
 
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
-        holder?.setVisibleForEmtyView(false)
+        holder?.setVisibleForEmptyView(false)
         holder?.vEmpty?.visibility = View.GONE
 
         if (position == items.size - 1)
-            holder?.setVisibleForEmtyView(true)
+            holder?.setVisibleForEmptyView(true)
 
         if (items.size == 1) {
             holder?.vEmpty?.visibility = View.GONE
@@ -87,7 +93,7 @@ class CardAdapter(val items: List<BusinessCard>, val context: Context) : Recycle
 
         val vEmpty = view.view_empty
 
-        fun setVisibleForEmtyView(isVisible: Boolean) {
+        fun setVisibleForEmptyView(isVisible: Boolean) {
             if (isVisible) {
                 vEmpty?.visibility = View.VISIBLE
             } else {
