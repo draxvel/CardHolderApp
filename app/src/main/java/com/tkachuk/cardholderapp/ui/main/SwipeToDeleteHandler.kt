@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.tkachuk.cardholderapp.R
 
-class SwipeToDeleteHandler(context: Context, private val onDelete: (CardAdapter.MyViewHolder) -> Unit) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+class SwipeToDeleteHandler(context: Context, private val itemCount: Int, private val onDelete: (CardAdapter.MyViewHolder) -> Unit) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
     private val background = ColorDrawable(Color.RED)
     private val xMark = ContextCompat.getDrawable(context, R.mipmap.ic_delete)?.apply {
         setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
@@ -32,15 +32,21 @@ class SwipeToDeleteHandler(context: Context, private val onDelete: (CardAdapter.
 
             val view = viewHolder.itemView // the view being swiped
 
+            var customBottom = view.bottom
+
+            if(viewHolder.adapterPosition == itemCount-1){
+                customBottom= view.bottom-200
+            }
+
             // draw the red background, based on the offset of the swipe (dX)
             background.apply {
-                setBounds(view.right + dX.toInt(), view.top, view.right, view.bottom)
+                setBounds(view.right + dX.toInt(), view.top, view.right, customBottom)
                 draw(c)
             }
 
             // draw the symbol
             xMark?.apply {
-                val xt = view.top + (view.bottom - view.top - xMark.intrinsicHeight) / 2
+                val xt = view.top + (customBottom - view.top - xMark.intrinsicHeight) / 2
                 setBounds(
                         view.right - xMarkMargin - xMark.intrinsicWidth,
                         xt,

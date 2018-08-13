@@ -52,10 +52,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         cardAdapter = CardAdapter(list.reversed(), this)
         rv_card_list.adapter = cardAdapter
 
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
-            if (it.adapterPosition == cardAdapter.itemCount) {
-                it.setVisibleForEmtyView(true)
-            }
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this, cardAdapter.itemCount) {
             val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
             mainPresenter.deleteCard(id)
             rv_card_list.adapter.notifyItemRemoved(it.adapterPosition)
