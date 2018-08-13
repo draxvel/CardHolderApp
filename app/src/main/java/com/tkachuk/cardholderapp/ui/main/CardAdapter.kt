@@ -34,14 +34,9 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
 
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
         holder?.setVisibleForEmptyView(false)
-        holder?.vEmpty?.visibility = View.GONE
 
         if (position == items.size - 1)
             holder?.setVisibleForEmptyView(true)
-
-        if (items.size == 1) {
-            holder?.vEmpty?.visibility = View.GONE
-        }
 
         if (items[position].name.isEmpty()) {
             holder?.tvName?.visibility = View.GONE
