@@ -37,7 +37,7 @@ class SwipeToDeleteHandler(context: Context, private val onDelete: (CardAdapter.
             var customBottom = view.bottom
 
             if(view.view_empty.visibility == View.VISIBLE){
-                customBottom= view.bottom-200
+                customBottom= view.bottom-100
             }
 
             // draw the red background, based on the offset of the swipe (dX)
