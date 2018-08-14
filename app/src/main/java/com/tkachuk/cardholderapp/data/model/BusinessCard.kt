@@ -11,7 +11,7 @@ class BusinessCard() : Serializable {
     var email: String = ""
     var phone: String = ""
     var location: String = ""
-    var category: String = ""
+    var category: Int = 0
 
     constructor(id: String, name: String,
                 description: String,
@@ -19,7 +19,7 @@ class BusinessCard() : Serializable {
                 email: String,
                 phone: String,
                 location: String,
-                category: String): this() {
+                category: Int): this() {
 
         this.id = id
         this.name = name
