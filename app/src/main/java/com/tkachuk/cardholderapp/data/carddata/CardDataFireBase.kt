@@ -17,6 +17,7 @@ object CardDataFireBase : ICardDataFireBase {
         cardMap["id"] = id
         cardMap["userId"] = FirebaseAuth.getInstance().currentUser!!.uid
         cardMap["name"] = businessCard.name
+        cardMap["category"] = businessCard.category
         cardMap["description"] = businessCard.description
         cardMap["location"] = businessCard.location
         cardMap["site"] = businessCard.site
@@ -71,11 +72,12 @@ object CardDataFireBase : ICardDataFireBase {
         cardMap["name"] = businessCard.name
         cardMap["description"] = businessCard.description
         cardMap["location"] = businessCard.location
+        cardMap["category"] = businessCard.category
         cardMap["site"] = businessCard.site
         cardMap["phone"] = businessCard.phone
         cardMap["email"] = businessCard.email
 
-        db.child(businessCard.id).setValue(cardMap).addOnSuccessListener {
+        db.child(businessCard.id).updateChildren(cardMap).addOnSuccessListener {
             iUpdateCallback.onEdit()
         }.addOnFailureListener { exception ->
             iUpdateCallback.showMsg(exception.toString())
