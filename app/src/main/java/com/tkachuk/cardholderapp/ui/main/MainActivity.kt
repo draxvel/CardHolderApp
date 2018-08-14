@@ -1,5 +1,7 @@
 package com.tkachuk.cardholderapp.ui.main
 
+import android.app.ActionBar
+import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,8 +10,9 @@ import android.support.v7.widget.SearchView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
+import android.widget.*
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import kotlinx.android.synthetic.main.activity_main.*
@@ -95,11 +98,50 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if (item != null && item.itemId == R.id.logout) {
-            mainPresenter.logout()
-            finish()
-            true
-        } else super.onOptionsItemSelected(item)
+        if(item!=null) {
+            when {
+                item.itemId == R.id.logout -> {
+                    mainPresenter.logout()
+                    finish()
+                    return true
+                }
+                item.itemId == R.id.item_category -> {
+                    val adp = ArrayAdapter.createFromResource(this,
+                            R.array.contact_category, android.R.layout.simple_spinner_item)
+                    adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                    val sp = Spinner(this@MainActivity)
+                    sp.layoutParams = LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
+                    sp.adapter = adp
+
+                    val builder = AlertDialog.Builder(this@MainActivity)
+                    builder.setView(sp)
+                    val alert = builder.create()
+
+                    alert.setOnCancelListener {}
+                    alert.show()
+
+                    sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            val category = parent?.adapter?.getItemId(position)!!.toInt()
+
+                            if(category==0) {
+                                mainPresenter.loadCardList()
+                            }else{
+                                mainPresenter.showListByCategory(
+                                        parent.adapter?.getItemId(position)!!.toInt())
+                            }
+                        }
+                    }
+
+                    return true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
+        }
+        return true
     }
 
     override fun setVisibleRefresh(isVisible: Boolean) {
