@@ -12,8 +12,6 @@ import com.tkachuk.cardholderapp.util.InternetConnection
 import kotlinx.android.synthetic.main.activity_edit.*
 import android.widget.ArrayAdapter
 
-
-
 class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
 
     private lateinit var editCardPresenter: EditCardPresenter
@@ -26,6 +24,11 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
 
         editCardPresenter = EditCardPresenter(applicationContext, this)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        val adapter = ArrayAdapter.createFromResource(this,
+                R.array.contact_category, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sp_tag.adapter = adapter
 
         if (intent.getSerializableExtra("map") != null) {
             val info: HashMap<String, String> =
@@ -40,12 +43,6 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
             isEdit = true
             setUpView(businessCard)
         }
-
-
-        val adapter = ArrayAdapter.createFromResource(this,
-                R.array.contact_category, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sp_tag.adapter = adapter
     }
 
     private fun setUpView(info: HashMap<String, String>) {
@@ -65,6 +62,7 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
         et_site.setText(card.site)
         et_phone.setText(card.phone)
         et_email.setText(card.email)
+        sp_tag.setSelection(card.category, true)
         idForEditCard = card.id
     }
 
@@ -93,7 +91,8 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
                                 et_site.text.toString(),
                                 et_email.text.toString(),
                                 et_phone.text.toString(),
-                                et_location.text.toString())
+                                et_location.text.toString(),
+                                sp_tag.selectedItemPosition)
                         when {
                             !isEdit -> {
                                 editCardPresenter.addToServer(businessCard)
