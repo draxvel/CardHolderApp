@@ -16,5 +16,6 @@ interface IMainContract {
         fun deleteCard(id: String)
         fun searchCard(query: String)
         fun showListByCategory(category: Int)
+        fun setPhoneBookList()
     }
 }

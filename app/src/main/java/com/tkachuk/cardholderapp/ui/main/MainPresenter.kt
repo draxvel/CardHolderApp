@@ -6,11 +6,12 @@ import com.tkachuk.cardholderapp.data.carddata.CardDataFireBase
 import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.util.InternetConnection
+import com.tkachuk.cardholderapp.util.PhoneBookManager
 
 class MainPresenter(val iMainView: IMainContract.IMainView, private val context: Context)
     : IMainContract.IMainPresenter {
 
-    private var localList: List<BusinessCard>? = null
+    private var localList: MutableList<BusinessCard>? = null
 
     override fun deleteCard(id: String) {
         CardDataFireBase.delete(id, iDeleteCallback = object : ICardDataFireBase.IDeleteCallback {
@@ -38,7 +39,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                 override fun onLoad(list: List<BusinessCard>) {
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
-                    localList = list
+                    localList = list.toMutableList()
                 }
 
                 override fun showMsg(msg: String) {
@@ -51,9 +52,10 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
 
     override fun searchCard(query: String) {
         val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
+
         if (localList != null) {
             if (localList != null && localList!!.isNotEmpty()) {
-                for (item in localList!!) {
+                for (item in localList  !!) {
                     if (item.name.toLowerCase().startsWith(query.toLowerCase())) {
                         filteredOutPut.add(item)
                     }
@@ -78,7 +80,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
 
                 iMainView.setCardList(filteredOutPut)
                 iMainView.setVisibleRefresh(false)
-                localList = list
+                localList = list.toMutableList()
             }
 
             override fun showMsg(msg: String) {
@@ -86,5 +88,12 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                 iMainView.showMsg(msg)
             }
         })
+    }
+
+    override fun setPhoneBookList() {
+        val phoneBookList: MutableList<BusinessCard>? = PhoneBookManager.getListOfContacts(context)
+        if (phoneBookList != null) {
+            localList?.addAll(phoneBookList)
+        }
     }
 }
