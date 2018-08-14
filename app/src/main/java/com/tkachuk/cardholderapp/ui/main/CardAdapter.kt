@@ -34,37 +34,38 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
 
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
         holder?.setVisibleForEmptyView(false)
-        holder?.vEmpty?.visibility = View.GONE
 
         if (position == items.size - 1)
             holder?.setVisibleForEmptyView(true)
 
-        if (items.size == 1) {
-            holder?.vEmpty?.visibility = View.GONE
-        }
-
         if (items[position].name.isEmpty()) {
             holder?.tvName?.visibility = View.GONE
+            holder?.ivName?.visibility = View.GONE
         }
 
         if (items[position].description.isEmpty()) {
             holder?.tvDescription?.visibility = View.GONE
+            holder?.ivDescription?.visibility = View.GONE
         }
 
         if (items[position].location.isEmpty()) {
             holder?.tvLocation?.visibility = View.GONE
+            holder?.ivLocation?.visibility = View.GONE
         }
 
         if (items[position].site.isEmpty()) {
             holder?.tvSite?.visibility = View.GONE
+            holder?.ivSite?.visibility = View.GONE
         }
 
         if (items[position].phone.isEmpty()) {
             holder?.tvPhone?.visibility = View.GONE
+            holder?.ivPhone?.visibility = View.GONE
         }
 
         if (items[position].email.isEmpty()) {
             holder?.tvEmail?.visibility = View.GONE
+            holder?.ivEmail?.visibility = View.GONE
         }
 
         holder?.tvName?.text = items[position].name
@@ -90,8 +91,14 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
         val tvSite = view.tv_site
         val tvPhone = view.tv_phone
         val tvEmail = view.tv_email
-
         val vEmpty = view.view_empty
+
+        val ivName = view.iv_name
+        val ivDescription = view.iv_description
+        val ivLocation = view.iv_location
+        val ivSite = view.iv_site
+        val ivPhone = view.iv_phone
+        val ivEmail = view.iv_email
 
         fun setVisibleForEmptyView(isVisible: Boolean) {
             if (isVisible) {
