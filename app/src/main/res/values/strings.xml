@@ -28,4 +28,5 @@
     <string name="edit_card">Edit card</string>
     <string name="category">Category</string>
     <string name="choose_category">Choose category</string>
+    <string name="filter">Filter</string>
 </resources>

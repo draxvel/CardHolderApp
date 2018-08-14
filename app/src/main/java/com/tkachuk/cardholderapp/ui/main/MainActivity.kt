@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                     finish()
                     return true
                 }
-                item.itemId == R.id.item_category -> {
+                item.itemId == R.id.item_filter -> {
                     val adp = ArrayAdapter.createFromResource(this,
                             R.array.contact_category, android.R.layout.simple_spinner_item)
                     adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

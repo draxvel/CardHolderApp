@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/item_category"
-        android:title="@string/category"
+        android:id="@+id/item_filter"
+        android:title="@string/filter"
         app:showAsAction="never">
     </item>
 
