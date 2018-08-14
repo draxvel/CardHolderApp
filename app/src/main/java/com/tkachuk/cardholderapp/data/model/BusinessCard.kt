@@ -19,7 +19,7 @@ class BusinessCard() : Serializable {
                 email: String,
                 phone: String,
                 location: String,
-                category: Int): this() {
+                category: Int) : this() {
 
         this.id = id
         this.name = name

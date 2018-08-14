@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item!=null) {
+        if (item != null) {
             when {
                 item.itemId == R.id.logout -> {
                     mainPresenter.logout()
@@ -121,15 +121,15 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                     alert.setOnCancelListener {}
                     alert.show()
 
-                    sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    sp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                             val category = parent?.adapter?.getItemId(position)!!.toInt()
 
-                            if(category==0) {
+                            if (category == 0) {
                                 mainPresenter.loadCardList()
-                            }else{
+                            } else {
                                 mainPresenter.showListByCategory(
                                         parent.adapter?.getItemId(position)!!.toInt())
                             }

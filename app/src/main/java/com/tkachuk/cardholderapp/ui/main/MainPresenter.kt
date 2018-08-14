@@ -70,7 +70,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
 
         CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
             override fun onLoad(list: List<BusinessCard>) {
-                for(item in list) {
+                for (item in list) {
                     if (item.category == category) {
                         filteredOutPut.add(item)
                     }

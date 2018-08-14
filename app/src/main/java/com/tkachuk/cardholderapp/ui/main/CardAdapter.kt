@@ -23,7 +23,7 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
     }
 
     fun removeObject(position: Int) {
-        if(items.isNotEmpty()){
+        if (items.isNotEmpty()) {
             items.removeAt(position)
         }
     }
