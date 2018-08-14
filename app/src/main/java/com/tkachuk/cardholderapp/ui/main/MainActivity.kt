@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
+                if (newText != null && newText!="") {
                     mainPresenter.searchCard(newText)
                 }
                 return false
@@ -138,6 +138,8 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
                     return true
                 }
+                item.itemId == R.id.item_search -> mainPresenter.setPhoneBookList()
+
                 else -> super.onOptionsItemSelected(item)
             }
         }
