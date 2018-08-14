@@ -10,6 +10,9 @@ import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.util.InternetConnection
 import kotlinx.android.synthetic.main.activity_edit.*
+import android.widget.ArrayAdapter
+
+
 
 class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
 
@@ -37,6 +40,12 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
             isEdit = true
             setUpView(businessCard)
         }
+
+
+        val adapter = ArrayAdapter.createFromResource(this,
+                R.array.contact_category, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sp_tag.adapter = adapter
     }
 
     private fun setUpView(info: HashMap<String, String>) {
