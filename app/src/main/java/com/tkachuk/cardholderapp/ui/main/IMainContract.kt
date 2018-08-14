@@ -15,5 +15,6 @@ interface IMainContract {
         fun loadCardList()
         fun deleteCard(id: String)
         fun searchCard(query: String)
+        fun showListByCategory(category: Int)
     }
 }

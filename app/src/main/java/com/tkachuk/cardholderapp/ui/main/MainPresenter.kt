@@ -7,7 +7,7 @@ import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.util.InternetConnection
 
-class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context)
+class MainPresenter(val iMainView: IMainContract.IMainView, private val context: Context)
     : IMainContract.IMainPresenter {
 
     private var localList: List<BusinessCard>? = null
@@ -63,5 +63,28 @@ class MainPresenter(val iMainView: IMainContract.IMainView, val context: Context
                 }
             } else iMainView.showMsg("Empty List")
         }
+    }
+
+    override fun showListByCategory(category: Int) {
+        val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
+
+        CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+            override fun onLoad(list: List<BusinessCard>) {
+                for (item in list) {
+                    if (item.category == category) {
+                        filteredOutPut.add(item)
+                    }
+                }
+
+                iMainView.setCardList(filteredOutPut)
+                iMainView.setVisibleRefresh(false)
+                localList = list
+            }
+
+            override fun showMsg(msg: String) {
+                iMainView.setVisibleRefresh(false)
+                iMainView.showMsg(msg)
+            }
+        })
     }
 }
