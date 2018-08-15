@@ -8,11 +8,12 @@ interface IMainContract {
     interface IMainView : IView {
         fun setCardList(list: List<BusinessCard>)
         fun setVisibleRefresh(isVisible: Boolean)
+        fun setIconForMenu(isFavorite: Boolean)
     }
 
     interface IMainPresenter {
         fun logout()
-        fun loadCardList()
+        fun loadCardList(fromFavoriteList: Boolean)
         fun deleteCard(id: String)
         fun searchCard(query: String)
         fun showListByCategory(category: Int)

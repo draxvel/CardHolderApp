@@ -29,13 +29,15 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
         AuthFireBase.signOut()
     }
 
-    override fun loadCardList() {
+    override fun loadCardList(fromFavoriteList: Boolean) {
 
         if (InternetConnection.isNetworkAvailable(context)) {
 
             iMainView.setVisibleRefresh(true)
 
-            CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+            iMainView.setIconForMenu(fromFavoriteList)
+
+            CardDataFireBase.load(fromFavoriteList,iLoadCallback = object : ICardDataFireBase.ILoadCallback {
                 override fun onLoad(list: List<BusinessCard>) {
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
@@ -70,7 +72,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
     override fun showListByCategory(category: Int) {
         val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
 
-        CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+        CardDataFireBase.load(false, iLoadCallback = object : ICardDataFireBase.ILoadCallback {
             override fun onLoad(list: List<BusinessCard>) {
                 for (item in list) {
                     if (item.category == category) {

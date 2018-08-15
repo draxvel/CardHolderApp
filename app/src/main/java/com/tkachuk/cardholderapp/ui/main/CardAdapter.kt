@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tkachuk.cardholderapp.R
+import com.tkachuk.cardholderapp.data.carddata.CardDataFireBase
+import com.tkachuk.cardholderapp.data.carddata.ICardDataFireBase
 import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
@@ -82,6 +85,23 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
             intent.putExtra("card", businessCard)
             context.startActivity(intent)
         }
+
+        holder?.itemView?.setOnLongClickListener {
+            val businessCard: BusinessCard = items[position]
+            businessCard.isFavorite = !businessCard.isFavorite
+            holder.setFavorite(businessCard.isFavorite)
+
+            CardDataFireBase.updateCard(businessCard, iUpdateCallback = object: ICardDataFireBase.IUpdateCallback{
+                override fun onEdit() {
+                    Toast.makeText(context, "Edit!", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun showMsg(msg: String) {
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+            })
+            return@setOnLongClickListener true
+        }
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -105,6 +125,14 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
                 vEmpty?.visibility = View.VISIBLE
             } else {
                 vEmpty?.visibility = View.GONE
+            }
+        }
+
+        fun setFavorite(isFavorite: Boolean){
+            if(isFavorite){
+                itemView.iv_name.setImageResource(R.mipmap.ic_star_blue)
+            }else {
+                itemView.iv_name.setImageResource(R.mipmap.ic_person)
             }
         }
     }

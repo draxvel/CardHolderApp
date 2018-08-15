@@ -17,6 +17,7 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
     private lateinit var editCardPresenter: EditCardPresenter
     private var isEdit: Boolean = false
     private var idForEditCard: String = ""
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,14 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
             isEdit = true
             setUpView(businessCard)
         }
+
+        iv_favorite.setOnClickListener {
+            if(isFavorite){
+                iv_favorite.setImageResource(R.mipmap.ic_star_blue_border)
+            }else{
+                iv_favorite.setImageResource(R.mipmap.ic_star_blue)
+            }
+        }
     }
 
     private fun setUpView(info: HashMap<String, String>) {
@@ -64,6 +73,11 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
         et_email.setText(card.email)
         sp_tag.setSelection(card.category, true)
         idForEditCard = card.id
+
+        isFavorite = card.isFavorite
+        if(card.isFavorite){
+            iv_favorite.setImageResource(R.mipmap.ic_star_blue)
+        }else iv_favorite.setImageResource(R.mipmap.ic_star_blue_border)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -92,10 +106,12 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
                                 et_email.text.toString(),
                                 et_phone.text.toString(),
                                 et_location.text.toString(),
-                                sp_tag.selectedItemPosition)
+                                sp_tag.selectedItemPosition,
+                                isFavorite,
+                                true)
                         when {
                             !isEdit -> {
-                                editCardPresenter.addToServer(businessCard)
+                                editCardPresenter.addToServer(businessCard, false)
                             }
                             isEdit -> {
                                 businessCard.id = idForEditCard
@@ -109,7 +125,6 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
                         finish()
                         return true
                     } else showMsg("No Internet connection")
-
                 }
             }
         }

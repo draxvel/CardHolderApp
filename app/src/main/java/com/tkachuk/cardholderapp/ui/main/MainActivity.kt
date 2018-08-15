@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     private lateinit var mainPresenter: MainPresenter
     private lateinit var cardAdapter: CardAdapter
     private var searchView: SearchView? = null
+    private var isFavoriteList: Boolean = false
+    private var itemFavorite: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         initPresenter()
         initListener()
         initRecyclerView()
-        mainPresenter.loadCardList()
+        mainPresenter.loadCardList(false)
     }
 
     private fun initListener() {
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         }
 
         swipe_refresh.setOnRefreshListener {
-            mainPresenter.loadCardList()
+            mainPresenter.loadCardList(false)
         }
     }
 
@@ -99,6 +101,8 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                 return false
             }
         })
+
+        itemFavorite = menu.findItem(R.id.item_favorite)
         return true
     }
 
@@ -133,18 +137,28 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                             val category = parent?.adapter?.getItemId(position)!!.toInt()
 
                             if (category == 0) {
-                                mainPresenter.loadCardList()
+                                mainPresenter.loadCardList(false)
                             } else {
                                 mainPresenter.showListByCategory(
                                         parent.adapter?.getItemId(position)!!.toInt())
                             }
                         }
                     }
-
                     return true
                 }
                 item.itemId == R.id.item_search -> mainPresenter.setPhoneBookList()
 
+                item.itemId == R.id.item_favorite -> {
+                    if (isFavoriteList) {
+                        isFavoriteList = false
+                        mainPresenter.loadCardList(false)
+                    }
+                    else {
+                        item.setIcon(R.mipmap.ic_star)
+                        isFavoriteList = true
+                        mainPresenter.loadCardList(true)
+                    }
+                }
                 else -> super.onOptionsItemSelected(item)
             }
         }
@@ -159,6 +173,16 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+    }
+
+    override fun setIconForMenu(isFavorite: Boolean){
+        if(isFavorite){
+            itemFavorite?.setIcon(R.mipmap.ic_star)
+            isFavoriteList = true
+        }else {
+            itemFavorite?.setIcon(R.mipmap.ic_star_border)
+            isFavoriteList = false
         }
     }
 }

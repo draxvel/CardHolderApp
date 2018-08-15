@@ -10,8 +10,9 @@ import kotlin.collections.HashMap
 object CardDataFireBase : ICardDataFireBase {
 
     private var db: DatabaseReference = FirebaseDatabase.getInstance().getReference("Cards")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
 
-    override fun save(businessCard: BusinessCard, iSaveCallback: ICardDataFireBase.ISaveCallback) {
+    override fun save(businessCard: BusinessCard, toFavoriteList: Boolean, iSaveCallback: ICardDataFireBase.ISaveCallback) {
         val cardMap = HashMap<String, Any>()
         val id: String = UUID.randomUUID().toString()
         cardMap["id"] = id
@@ -24,7 +25,8 @@ object CardDataFireBase : ICardDataFireBase {
         cardMap["phone"] = businessCard.phone
         cardMap["email"] = businessCard.email
         cardMap["timestamp"] = ServerValue.TIMESTAMP
-
+        cardMap["isFavorite"] = businessCard.isFavorite
+        cardMap["isServerValue"] = businessCard.isServerValue
         db.child(id).setValue(cardMap).addOnSuccessListener {
             iSaveCallback.onSave()
         }.addOnFailureListener { exception ->
@@ -32,18 +34,30 @@ object CardDataFireBase : ICardDataFireBase {
         }
     }
 
-    override fun load(iLoadCallback: ICardDataFireBase.ILoadCallback) {
+    override fun load(fromFavoriteList: Boolean, iLoadCallback: ICardDataFireBase.ILoadCallback) {
         db.orderByChild("timestamp").limitToLast(50).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 val myList: MutableList<BusinessCard> = mutableListOf()
 
-                for (d in dataSnapshot.children) {
-                    val card: BusinessCard? = d.getValue(BusinessCard::class.java)
-                    if (card != null && d.child("userId").value == FirebaseAuth.getInstance().currentUser!!.uid) {
-                        myList.add(card)
+                if(fromFavoriteList){
+                    for (d in dataSnapshot.children) {
+                        val card: BusinessCard? = d.getValue(BusinessCard::class.java)
+                        if (card != null) {
+                            if (fromFavoriteList && d.child("isFavorite").value == true)
+                                myList.add(card)
+                        }
+                    }
+                }else{
+                    for (d in dataSnapshot.children) {
+                        val card: BusinessCard? = d.getValue(BusinessCard::class.java)
+                        if (card != null){
+                            myList.add(card)
+                        }
                     }
                 }
+
+
 
                 if (myList.isNotEmpty()) {
                     iLoadCallback.onLoad(myList)
@@ -76,6 +90,8 @@ object CardDataFireBase : ICardDataFireBase {
         cardMap["site"] = businessCard.site
         cardMap["phone"] = businessCard.phone
         cardMap["email"] = businessCard.email
+        cardMap["isFavorite"] = businessCard.isFavorite
+        cardMap["isServerValue"] = businessCard.isServerValue
 
         db.child(businessCard.id).updateChildren(cardMap).addOnSuccessListener {
             iUpdateCallback.onEdit()
