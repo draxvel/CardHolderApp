@@ -55,7 +55,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
 
         if (localList != null) {
             if (localList != null && localList!!.isNotEmpty()) {
-                for (item in localList  !!) {
+                for (item in localList!!) {
                     if (item.name.toLowerCase().startsWith(query.toLowerCase())) {
                         filteredOutPut.add(item)
                     }

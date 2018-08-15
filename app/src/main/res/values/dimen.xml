@@ -13,5 +13,6 @@
     <dimen name="size_small">16dp</dimen>
     <dimen name="size_medium">32dp</dimen>
     <dimen name="size_large">100dp</dimen>
+    <dimen name="size_extraLarge">150dp</dimen>
 
 </resources>

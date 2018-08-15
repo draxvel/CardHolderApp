@@ -15,6 +15,7 @@ import android.view.WindowManager
 import android.widget.*
 import com.tkachuk.cardholderapp.R
 import com.tkachuk.cardholderapp.data.model.BusinessCard
+import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import com.tkachuk.cardholderapp.ui.scanner.ScannerActivity
 
@@ -34,8 +35,12 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     }
 
     private fun initListener() {
-        floatingActionButton.setOnClickListener {
+        fab_scan.setOnClickListener {
             startActivity(Intent(this@MainActivity, ScannerActivity::class.java))
+        }
+
+        fab_manual.setOnClickListener {
+            startActivity(Intent(this@MainActivity, EditCardActivity::class.java))
         }
 
         swipe_refresh.setOnRefreshListener {
@@ -88,7 +93,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null && newText!="") {
+                if (newText != null && newText != "") {
                     mainPresenter.searchCard(newText)
                 }
                 return false
