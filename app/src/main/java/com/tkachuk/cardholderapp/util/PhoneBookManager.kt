@@ -5,7 +5,7 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import android.provider.ContactsContract
 
 object PhoneBookManager {
-    fun getListOfContacts(context: Context): MutableList<BusinessCard>{
+    fun getListOfContacts(context: Context): MutableList<BusinessCard> {
         val list = mutableListOf<BusinessCard>()
         val phones = context.contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
         while (phones.moveToNext()) {

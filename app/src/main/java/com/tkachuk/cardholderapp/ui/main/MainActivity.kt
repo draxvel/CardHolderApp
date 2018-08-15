@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null && newText!="") {
+                if (newText != null && newText != "") {
                     mainPresenter.searchCard(newText)
                 }
                 return false

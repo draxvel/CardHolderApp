@@ -55,7 +55,8 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/et_name"
-                app:layout_constraintTop_toTopOf="@id/et_name"></Spinner>
+                app:layout_constraintTop_toTopOf="@id/et_name">
+            </Spinner>
 
             <EditText
                 android:id="@+id/et_description"
