@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     override fun setVisibleRefresh(isVisible: Boolean) {
         swipe_refresh.isRefreshing = isVisible
-
+        tv_empty_view.visibility = View.GONE
         if (isVisible) {
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -187,5 +187,9 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
             itemFavorite?.setIcon(R.mipmap.ic_star_border)
             false
         }
+    }
+
+    override fun emptyList() {
+        tv_empty_view.visibility = View.VISIBLE
     }
 }

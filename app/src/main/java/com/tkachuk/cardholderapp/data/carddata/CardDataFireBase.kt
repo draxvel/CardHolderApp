@@ -57,10 +57,7 @@ object CardDataFireBase : ICardDataFireBase {
                         }
                     }
                 }
-
-                if (myList.isNotEmpty()) {
-                    iLoadCallback.onLoad(myList)
-                } else iLoadCallback.showMsg("Empty!")
+                 iLoadCallback.onLoad(myList)
             }
 
             override fun onCancelled(error: DatabaseError) {

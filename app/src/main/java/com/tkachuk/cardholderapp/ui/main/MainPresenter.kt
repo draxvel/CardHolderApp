@@ -42,6 +42,9 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
                     localList = list.toMutableList()
+                    if(list.isEmpty()){
+                        iMainView.emptyList()
+                    }
                 }
 
                 override fun showMsg(msg: String) {
@@ -65,7 +68,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                 if (filteredOutPut.isNotEmpty()) {
                     iMainView.setCardList(filteredOutPut)
                 }
-            } else iMainView.showMsg("Empty List")
+            } else iMainView.emptyList()
         }
     }
 

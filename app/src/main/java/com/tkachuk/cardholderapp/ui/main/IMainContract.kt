@@ -9,6 +9,7 @@ interface IMainContract {
         fun setCardList(list: List<BusinessCard>)
         fun setVisibleRefresh(isVisible: Boolean)
         fun setIconForMenu(isFavorite: Boolean)
+        fun emptyList()
     }
 
     interface IMainPresenter {
