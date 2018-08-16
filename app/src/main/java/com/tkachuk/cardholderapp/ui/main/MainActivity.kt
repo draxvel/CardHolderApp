@@ -5,9 +5,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -67,12 +70,12 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         rv_card_list.adapter = cardAdapter
 
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
-            if(cardAdapter.getServerValueByPosition(it.adapterPosition)){
+            if (cardAdapter.getServerValueByPosition(it.adapterPosition)) {
                 val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
                 mainPresenter.deleteCard(id)
                 cardAdapter.removeObject(it.adapterPosition)
                 cardAdapter.notifyItemRemoved(it.adapterPosition)
-            }else{
+            } else {
                 cardAdapter.notifyItemChanged(it.adapterPosition)
             }
         })
@@ -92,6 +95,19 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
         searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+
+        menu.findItem(R.id.item_search).setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                mainPresenter.loadCardList(false)
+                return true
+            }
+
+        })
+
         searchView?.setIconifiedByDefault(true)
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

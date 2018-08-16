@@ -57,7 +57,7 @@ object CardDataFireBase : ICardDataFireBase {
                         }
                     }
                 }
-                 iLoadCallback.onLoad(myList)
+                iLoadCallback.onLoad(myList)
             }
 
             override fun onCancelled(error: DatabaseError) {

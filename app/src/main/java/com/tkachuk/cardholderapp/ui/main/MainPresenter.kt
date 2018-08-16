@@ -42,7 +42,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
                     localList = list.toMutableList()
-                    if(list.isEmpty()){
+                    if (list.isEmpty()) {
                         iMainView.emptyList()
                     }
                 }
