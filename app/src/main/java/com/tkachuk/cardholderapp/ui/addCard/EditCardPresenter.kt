@@ -19,8 +19,8 @@ class EditCardPresenter(private var context: Context, private var editView: Edit
         context.startActivity(intent)
     }
 
-    override fun addToServer(businessCard: BusinessCard) {
-        CardDataFireBase.save(businessCard, iSaveCallback = object : ICardDataFireBase.ISaveCallback {
+    override fun addToServer(businessCard: BusinessCard, toFavoriteList: Boolean) {
+        CardDataFireBase.save(businessCard, toFavoriteList, iSaveCallback = object : ICardDataFireBase.ISaveCallback {
             override fun onSave() {
                 editView.showMsg("Saved to server")
             }

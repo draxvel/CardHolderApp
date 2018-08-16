@@ -11,7 +11,7 @@ object PhoneBookManager {
         while (phones.moveToNext()) {
             val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-            list.add(BusinessCard("", name, "", "", "", phoneNumber, "", 0))
+            list.add(BusinessCard("", name, "", "", "", phoneNumber, "", 0, false, false))
         }
         phones.close()
         return list

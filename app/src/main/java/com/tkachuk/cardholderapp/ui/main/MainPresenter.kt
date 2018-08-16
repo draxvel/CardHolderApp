@@ -29,17 +29,22 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
         AuthFireBase.signOut()
     }
 
-    override fun loadCardList() {
+    override fun loadCardList(fromFavoriteList: Boolean) {
 
         if (InternetConnection.isNetworkAvailable(context)) {
 
             iMainView.setVisibleRefresh(true)
 
-            CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+            iMainView.setIconForMenu(fromFavoriteList)
+
+            CardDataFireBase.load(fromFavoriteList, iLoadCallback = object : ICardDataFireBase.ILoadCallback {
                 override fun onLoad(list: List<BusinessCard>) {
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)
                     localList = list.toMutableList()
+                    if (list.isEmpty()) {
+                        iMainView.emptyList()
+                    }
                 }
 
                 override fun showMsg(msg: String) {
@@ -63,14 +68,14 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
                 if (filteredOutPut.isNotEmpty()) {
                     iMainView.setCardList(filteredOutPut)
                 }
-            } else iMainView.showMsg("Empty List")
+            } else iMainView.emptyList()
         }
     }
 
     override fun showListByCategory(category: Int) {
         val filteredOutPut: MutableList<BusinessCard> = mutableListOf()
 
-        CardDataFireBase.load(iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+        CardDataFireBase.load(false, iLoadCallback = object : ICardDataFireBase.ILoadCallback {
             override fun onLoad(list: List<BusinessCard>) {
                 for (item in list) {
                     if (item.category == category) {

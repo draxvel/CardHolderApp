@@ -21,14 +21,16 @@
     <string name="site">Site</string>
     <string name="phone">Phone</string>
     <string name="check">check</string>
-    <string name="add_phone_to_contact_list">Add phone to contact list</string>
+    <string name="add_phone_to_contact_list">Add to contact list</string>
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
     <string name="search">Search</string>
     <string name="edit_card">Edit card</string>
     <string name="category">Category</string>
-    <string name="choose_category">Choose category</string>
+    <string name="choose_category">Choose category:</string>
     <string name="filter">Filter</string>
-    <string name="general">General</string>
-    <string name="contact_info">Contact info</string>
+    <string name="required_fields">Required fields</string>
+    <string name="additional_info">Additional info</string>
+    <string name="favorite">Favorite</string>
+    <string name="Empty_list">Empty List</string>
 </resources>

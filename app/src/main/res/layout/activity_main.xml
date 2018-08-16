@@ -48,6 +48,14 @@
                 app:fab_size="mini" />
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
+        <TextView
+            android:id="@+id/tv_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="visible"
+            android:text="@string/Empty_list" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

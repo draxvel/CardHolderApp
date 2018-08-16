@@ -12,6 +12,8 @@ class BusinessCard() : Serializable {
     var phone: String = ""
     var location: String = ""
     var category: Int = 0
+    var isFavorite: Boolean = false
+    var isServerValue: Boolean = true
 
     constructor(id: String, name: String,
                 description: String,
@@ -19,7 +21,9 @@ class BusinessCard() : Serializable {
                 email: String,
                 phone: String,
                 location: String,
-                category: Int) : this() {
+                category: Int,
+                isFavorite: Boolean,
+                isServerValue: Boolean) : this() {
 
         this.id = id
         this.name = name
@@ -29,5 +33,7 @@ class BusinessCard() : Serializable {
         this.phone = phone
         this.location = location
         this.category = category
+        this.isFavorite = isFavorite
+        this.isServerValue = isServerValue
     }
 }

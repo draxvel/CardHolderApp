@@ -3,8 +3,10 @@ package com.tkachuk.cardholderapp.ui.main
 import android.app.ActionBar
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -24,6 +26,10 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     private lateinit var mainPresenter: MainPresenter
     private lateinit var cardAdapter: CardAdapter
     private var searchView: SearchView? = null
+    private var isFavoriteList: Boolean = false
+    private var itemFavorite: MenuItem? = null
+
+    private val requestPermissionContact = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +37,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         initPresenter()
         initListener()
         initRecyclerView()
-        mainPresenter.loadCardList()
+        mainPresenter.loadCardList(false)
     }
 
     private fun initListener() {
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         }
 
         swipe_refresh.setOnRefreshListener {
-            mainPresenter.loadCardList()
+            mainPresenter.loadCardList(false)
         }
     }
 
@@ -65,10 +71,14 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         rv_card_list.adapter = cardAdapter
 
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
-            val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
-            mainPresenter.deleteCard(id)
-            cardAdapter.removeObject(it.adapterPosition)
-            cardAdapter.notifyItemRemoved(it.adapterPosition)
+            if (cardAdapter.getServerValueByPosition(it.adapterPosition)) {
+                val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
+                mainPresenter.deleteCard(id)
+                cardAdapter.removeObject(it.adapterPosition)
+                cardAdapter.notifyItemRemoved(it.adapterPosition)
+            } else {
+                cardAdapter.notifyItemChanged(it.adapterPosition)
+            }
         })
         itemTouchHelper.attachToRecyclerView(rv_card_list)
     }
@@ -86,6 +96,19 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
         searchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+
+        menu.findItem(R.id.item_search).setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                mainPresenter.loadCardList(false)
+                return true
+            }
+
+        })
+
         searchView?.setIconifiedByDefault(true)
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -99,6 +122,8 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                 return false
             }
         })
+
+        itemFavorite = menu.findItem(R.id.item_favorite)
         return true
     }
 
@@ -133,18 +158,37 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                             val category = parent?.adapter?.getItemId(position)!!.toInt()
 
                             if (category == 0) {
-                                mainPresenter.loadCardList()
+                                mainPresenter.loadCardList(false)
                             } else {
                                 mainPresenter.showListByCategory(
                                         parent.adapter?.getItemId(position)!!.toInt())
                             }
                         }
                     }
-
                     return true
                 }
-                item.itemId == R.id.item_search -> mainPresenter.setPhoneBookList()
 
+                item.itemId == R.id.item_search ->
+                {
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                        mainPresenter.setPhoneBookList()
+                    } else {
+                        ActivityCompat.requestPermissions(this,
+                                arrayOf(android.Manifest.permission.READ_CONTACTS),
+                                requestPermissionContact)
+                    }
+                }
+
+                item.itemId == R.id.item_favorite -> {
+                    if (isFavoriteList) {
+                        isFavoriteList = false
+                        mainPresenter.loadCardList(false)
+                    } else {
+                        item.setIcon(R.mipmap.ic_star)
+                        isFavoriteList = true
+                        mainPresenter.loadCardList(true)
+                    }
+                }
                 else -> super.onOptionsItemSelected(item)
             }
         }
@@ -153,12 +197,37 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     override fun setVisibleRefresh(isVisible: Boolean) {
         swipe_refresh.isRefreshing = isVisible
-
+        tv_empty_view.visibility = View.GONE
         if (isVisible) {
             window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+    }
+
+    override fun setIconForMenu(isFavorite: Boolean) {
+        isFavoriteList = if (isFavorite) {
+            itemFavorite?.setIcon(R.mipmap.ic_star)
+            true
+        } else {
+            itemFavorite?.setIcon(R.mipmap.ic_star_border)
+            false
+        }
+    }
+
+    override fun emptyList() {
+        tv_empty_view.visibility = View.VISIBLE
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            requestPermissionContact -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mainPresenter.setPhoneBookList()
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

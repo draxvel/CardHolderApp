@@ -21,8 +21,8 @@ interface ICardDataFireBase {
         fun onEdit()
     }
 
-    fun save(businessCard: BusinessCard, iSaveCallback: ISaveCallback)
-    fun load(iLoadCallback: ILoadCallback)
+    fun save(businessCard: BusinessCard, toFavoriteList: Boolean, iSaveCallback: ISaveCallback)
+    fun load(fromFavoriteList: Boolean, iLoadCallback: ILoadCallback)
 
     fun delete(id: String, iDeleteCallback: IDeleteCallback)
     fun updateCard(businessCard: BusinessCard, iUpdateCallback: IUpdateCallback)

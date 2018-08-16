@@ -6,9 +6,11 @@ import com.tkachuk.cardholderapp.ui.IView
 interface EditCardContract {
     interface IEditCardPresenter {
         fun addToContactList(name: String, phone: String)
-        fun addToServer(businessCard: BusinessCard)
+        fun addToServer(businessCard: BusinessCard, toFavoriteList: Boolean)
         fun updateCard(businessCard: BusinessCard)
     }
 
-    interface IEditView : IView
+    interface IEditView : IView {
+        fun setFavorite()
+    }
 }
