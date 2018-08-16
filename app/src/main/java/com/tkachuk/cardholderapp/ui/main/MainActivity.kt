@@ -152,8 +152,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                     if (isFavoriteList) {
                         isFavoriteList = false
                         mainPresenter.loadCardList(false)
-                    }
-                    else {
+                    } else {
                         item.setIcon(R.mipmap.ic_star)
                         isFavoriteList = true
                         mainPresenter.loadCardList(true)
@@ -176,13 +175,13 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         }
     }
 
-    override fun setIconForMenu(isFavorite: Boolean){
-        if(isFavorite){
+    override fun setIconForMenu(isFavorite: Boolean) {
+        isFavoriteList = if (isFavorite) {
             itemFavorite?.setIcon(R.mipmap.ic_star)
-            isFavoriteList = true
-        }else {
+            true
+        } else {
             itemFavorite?.setIcon(R.mipmap.ic_star_border)
-            isFavoriteList = false
+            false
         }
     }
 }

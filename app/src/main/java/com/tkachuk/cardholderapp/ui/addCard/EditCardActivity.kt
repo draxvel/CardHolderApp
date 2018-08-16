@@ -45,11 +45,15 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
             setUpView(businessCard)
         }
 
+        setFavorite()
+
         iv_favorite.setOnClickListener {
-            if(isFavorite){
+            isFavorite = if (isFavorite) {
                 iv_favorite.setImageResource(R.mipmap.ic_star_blue_border)
-            }else{
+                false
+            } else {
                 iv_favorite.setImageResource(R.mipmap.ic_star_blue)
+                true
             }
         }
     }
@@ -75,9 +79,7 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
         idForEditCard = card.id
 
         isFavorite = card.isFavorite
-        if(card.isFavorite){
-            iv_favorite.setImageResource(R.mipmap.ic_star_blue)
-        }else iv_favorite.setImageResource(R.mipmap.ic_star_blue_border)
+        setFavorite()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -139,5 +141,13 @@ class EditCardActivity : AppCompatActivity(), EditCardContract.IEditView {
 
     override fun showMsg(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setFavorite() {
+        if (isFavorite) {
+            iv_favorite.setImageResource(R.mipmap.ic_star_blue)
+        } else {
+            iv_favorite.setImageResource(R.mipmap.ic_star_blue_border)
+        }
     }
 }

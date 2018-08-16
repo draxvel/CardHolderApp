@@ -37,7 +37,7 @@ class MainPresenter(val iMainView: IMainContract.IMainView, private val context:
 
             iMainView.setIconForMenu(fromFavoriteList)
 
-            CardDataFireBase.load(fromFavoriteList,iLoadCallback = object : ICardDataFireBase.ILoadCallback {
+            CardDataFireBase.load(fromFavoriteList, iLoadCallback = object : ICardDataFireBase.ILoadCallback {
                 override fun onLoad(list: List<BusinessCard>) {
                     iMainView.setCardList(list)
                     iMainView.setVisibleRefresh(false)

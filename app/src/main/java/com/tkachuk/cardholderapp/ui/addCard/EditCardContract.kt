@@ -10,5 +10,7 @@ interface EditCardContract {
         fun updateCard(businessCard: BusinessCard)
     }
 
-    interface IEditView : IView
+    interface IEditView : IView {
+        fun setFavorite()
+    }
 }

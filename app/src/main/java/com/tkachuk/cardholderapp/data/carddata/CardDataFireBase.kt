@@ -40,7 +40,7 @@ object CardDataFireBase : ICardDataFireBase {
 
                 val myList: MutableList<BusinessCard> = mutableListOf()
 
-                if(fromFavoriteList){
+                if (fromFavoriteList) {
                     for (d in dataSnapshot.children) {
                         val card: BusinessCard? = d.getValue(BusinessCard::class.java)
                         if (card != null) {
@@ -48,10 +48,10 @@ object CardDataFireBase : ICardDataFireBase {
                                 myList.add(card)
                         }
                     }
-                }else{
+                } else {
                     for (d in dataSnapshot.children) {
                         val card: BusinessCard? = d.getValue(BusinessCard::class.java)
-                        if (card != null){
+                        if (card != null) {
                             card.isFavorite = d.child("isFavorite").value as Boolean
                             myList.add(card)
                         }
