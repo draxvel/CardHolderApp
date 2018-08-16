@@ -67,10 +67,14 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
         rv_card_list.adapter = cardAdapter
 
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler(this) {
-            val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
-            mainPresenter.deleteCard(id)
-            cardAdapter.removeObject(it.adapterPosition)
-            cardAdapter.notifyItemRemoved(it.adapterPosition)
+            if(cardAdapter.getServerValueByPosition(it.adapterPosition)){
+                val id: String = cardAdapter.getIdByPosition(it.adapterPosition)
+                mainPresenter.deleteCard(id)
+                cardAdapter.removeObject(it.adapterPosition)
+                cardAdapter.notifyItemRemoved(it.adapterPosition)
+            }else{
+                cardAdapter.notifyItemChanged(it.adapterPosition)
+            }
         })
         itemTouchHelper.attachToRecyclerView(rv_card_list)
     }

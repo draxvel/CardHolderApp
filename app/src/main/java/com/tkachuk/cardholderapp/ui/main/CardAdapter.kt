@@ -11,7 +11,7 @@ import com.tkachuk.cardholderapp.data.model.BusinessCard
 import com.tkachuk.cardholderapp.ui.addCard.EditCardActivity
 import kotlinx.android.synthetic.main.item_card.view.*
 
-class CardAdapter(private val items: MutableList<BusinessCard>, private val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
+class CardAdapter(private val items: MutableList<BusinessCard>,  private val context: Context) : RecyclerView.Adapter<CardAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(context)
@@ -30,6 +30,10 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
 
     fun getIdByPosition(position: Int): String {
         return items[position].id
+    }
+
+    fun getServerValueByPosition (position: Int): Boolean {
+        return items[position].isServerValue
     }
 
     override fun onBindViewHolder(holder: MyViewHolder?, position: Int) {
