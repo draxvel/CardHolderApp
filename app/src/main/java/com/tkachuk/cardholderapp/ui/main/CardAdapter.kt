@@ -42,34 +42,35 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
         if (position == items.size - 1)
             holder?.setVisibleForEmptyView(true)
 
-        if (items[position].name.isEmpty()) {
-            holder?.tvName?.visibility = View.GONE
-            holder?.ivName?.visibility = View.GONE
+        //if contact is from phoneBook
+        if(!items[position].isServerValue){
+            holder?.tvDescription?.visibility = View.GONE
+            holder?.ivDescription?.visibility = View.GONE
+
+            holder?.tvLocation?.visibility = View.GONE
+            holder?.ivLocation?.visibility = View.GONE
+
+            holder?.tvSite?.visibility = View.GONE
+            holder?.ivSite?.visibility = View.GONE
+
+            holder?.tvEmail?.visibility = View.GONE
+            holder?.ivEmail?.visibility = View.GONE
         }
 
         if (items[position].description.isEmpty()) {
-            holder?.tvDescription?.visibility = View.GONE
-            holder?.ivDescription?.visibility = View.GONE
+            holder?.tvDescription?.text = context.getString(R.string.empty)
         }
 
         if (items[position].location.isEmpty()) {
-            holder?.tvLocation?.visibility = View.GONE
-            holder?.ivLocation?.visibility = View.GONE
+            holder?.tvLocation?.text = context.getString(R.string.empty)
         }
 
         if (items[position].site.isEmpty()) {
-            holder?.tvSite?.visibility = View.GONE
-            holder?.ivSite?.visibility = View.GONE
-        }
-
-        if (items[position].phone.isEmpty()) {
-            holder?.tvPhone?.visibility = View.GONE
-            holder?.ivPhone?.visibility = View.GONE
+            holder?.tvSite?.text = context.getString(R.string.empty)
         }
 
         if (items[position].email.isEmpty()) {
-            holder?.tvEmail?.visibility = View.GONE
-            holder?.ivEmail?.visibility = View.GONE
+            holder?.tvEmail?.text = context.getString(R.string.empty)
         }
 
         holder?.tvName?.text = items[position].name
@@ -81,10 +82,12 @@ class CardAdapter(private val items: MutableList<BusinessCard>, private val cont
 
         holder?.itemView?.setOnClickListener {
             val businessCard: BusinessCard = items[position]
-            val intent = Intent(context, EditCardActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra("card", businessCard)
-            context.startActivity(intent)
+            if(businessCard.isServerValue){
+                val intent = Intent(context, EditCardActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra("card", businessCard)
+                context.startActivity(intent)
+            }
         }
     }
 
