@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
                 item.itemId == R.id.item_search ->
                 {
-                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
                         mainPresenter.setPhoneBookList()
                     } else {
                         ActivityCompat.requestPermissions(this,
