@@ -3,14 +3,13 @@ package com.tkachuk.cardholderapp.ui.main
 import android.app.ActionBar
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v4.view.MenuItemCompat
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,6 +28,8 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
     private var searchView: SearchView? = null
     private var isFavoriteList: Boolean = false
     private var itemFavorite: MenuItem? = null
+
+    private val requestPermissionContact = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,7 +167,17 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
                     }
                     return true
                 }
-                item.itemId == R.id.item_search -> mainPresenter.setPhoneBookList()
+
+                item.itemId == R.id.item_search ->
+                {
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                        mainPresenter.setPhoneBookList()
+                    } else {
+                        ActivityCompat.requestPermissions(this,
+                                arrayOf(android.Manifest.permission.READ_CONTACTS),
+                                requestPermissionContact)
+                    }
+                }
 
                 item.itemId == R.id.item_favorite -> {
                     if (isFavoriteList) {
@@ -207,5 +218,16 @@ class MainActivity : AppCompatActivity(), IMainContract.IMainView {
 
     override fun emptyList() {
         tv_empty_view.visibility = View.VISIBLE
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            requestPermissionContact -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mainPresenter.setPhoneBookList()
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
