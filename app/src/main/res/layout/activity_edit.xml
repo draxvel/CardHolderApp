@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_large"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/spacing_medium"
                 android:text="@string/choose_category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -65,19 +65,23 @@
                 android:layout_marginStart="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toTopOf="@+id/textView3"></Spinner>
+                app:layout_constraintTop_toTopOf="@+id/textView3">
+            </Spinner>
 
             <EditText
                 android:id="@+id/et_description"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_large"
                 android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:ems="15"
                 android:hint="@string/description"
                 android:inputType="text"
-                android:maxLength="40"
+                android:maxLength="30"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -85,8 +89,8 @@
                 android:id="@+id/iv_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_marginRight="@dimen/spacing_medium"
                 android:contentDescription="@string/icon"
                 android:src="@mipmap/ic_star_blue"
                 app:layout_constraintBottom_toBottomOf="@+id/sp_tag"
@@ -95,15 +99,18 @@
 
             <EditText
                 android:id="@+id/et_location"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_large"
                 android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:ems="15"
                 android:hint="@string/location"
                 android:inputType="text"
-                android:maxLength="40"
+                android:maxLength="30"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_description" />
 
@@ -130,17 +137,22 @@
 
             <EditText
                 android:id="@+id/et_site"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginEnd="@dimen/spacing_large"
                 android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:ems="10"
+                android:ems="15"
                 android:hint="@string/site"
                 android:inputType="text"
-                android:maxLength="20"
+                android:maxLength="30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_location" />
+                app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
             <EditText
                 android:id="@+id/et_phone"
@@ -158,20 +170,21 @@
 
             <EditText
                 android:id="@+id/et_email"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginEnd="@dimen/spacing_large"
                 android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:ems="10"
+                android:ems="15"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:maxLength="20"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:maxLength="30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_site"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/et_location" />
 
             <CheckBox
                 android:id="@+id/cb_phone"
