@@ -52,12 +52,11 @@ object CardDataFireBase : ICardDataFireBase {
                     for (d in dataSnapshot.children) {
                         val card: BusinessCard? = d.getValue(BusinessCard::class.java)
                         if (card != null){
+                            card.isFavorite = d.child("isFavorite").value as Boolean
                             myList.add(card)
                         }
                     }
                 }
-
-
 
                 if (myList.isNotEmpty()) {
                     iLoadCallback.onLoad(myList)
